@@ -1,0 +1,142 @@
+Experiment:
+  name: "Cenario-1-slowloris"
+  nodeactors:
+    - name: "server-http"
+      persitent_volume_path: ["/app/results/", "/app/results/"]
+      replicas: 1
+      containers:
+        - name: "tshark"
+          image: "ghcr.io/khalilsantana/network-monitor:latest"
+          imagePullPolicy: "Always"
+          command: ["iptables-80-22-tshark.sh"]
+          securityContext:
+            privileged: true
+        - name: "server"
+          image: "ghcr.io/mentoredtestbed/generic-apache-flask-webserver:latest"
+          imagePullPolicy: "Always"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 80
+          env:
+            - name: "ENABLE_SLOWLORIS_DEFENSE"
+              value: "true"
+            - name: "MENTORED_DNS"
+              value: "pod-dns"
+            - name: "MENTORED_DNS_NA"
+              value: "dns-server"
+          resources:
+            requests:
+              memory: "1G"
+              cpu: "1"
+            limits:
+              memory: "2G"
+              cpu: "2"
+      region: "v2-k8s-vm1"
+      cluster: "iot"
+
+    - name: "client-http"
+      persitent_volume_path: "/app/results/"
+      replicas: 1
+      containers:
+        - name: "client-static"
+          image: "ghcr.io/khalilsantana/generic-client:latest"
+          imagePullPolicy: "Always"
+          command: ["/entry.sh"]
+          args: ["random-requests.sh"]
+          env:
+            - name: "SERVER_NA_NAME"
+              value: "server-http"
+            - name: "TIME_WAIT_START"
+              value: "0"
+            - name: "TIMEOUT_CMD"
+              value: "300"
+            - name: "ADD_SERVER_IP_TO_COMMAND"
+              value: "true"
+            - name: "MIN_RANDOM"
+              value: "1.0"
+            - name: "MAX_RANDOM"
+              value: "1.0"
+            - name: "ADDITIONAL_FLAGS"
+              value: "--static_behavior"
+            - name: "MENTORED_DNS"
+              value: "pod-dns"
+            - name: "MENTORED_DNS_NA"
+              value: "dns-server"
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "32M"
+              cpu: "50m"
+            limits:
+              memory: "128M"
+              cpu: "200m"
+      region: "rpi-1-ufmg"
+      cluster: "iot"
+
+    - name: "attacker-http"
+      persitent_volume_path: ["/app/results/", "/app/results/"]
+      replicas: 1
+      containers:
+        - name: "attacker"
+          image: "ghcr.io/khalilsantana/generic-botnet:latest"
+          imagePullPolicy: "Always"
+          command: ["/entry.sh"]
+          args: ["mentored-attack", "slowloris", "server-http", "net1", "180", "80"]
+          env:
+            - name: "TIME_WAIT_START"
+              value: "120"
+            - name: "SERVER_NA_NAME"
+              value: "server-http"
+            - name: "MENTORED_DNS"
+              value: "pod-dns"
+            - name: "MENTORED_DNS_NA"
+              value: "dns-server"
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "1000m"
+            limits:
+              memory: "512M"
+              cpu: "2000m"
+        - name: "tshark"
+          image: "ghcr.io/khalilsantana/network-monitor:latest"
+          imagePullPolicy: "Always"
+          command: ["iptables-80-22-tshark.sh"]
+          securityContext:
+            privileged: true
+      region: "rpi-8-ufmg"
+      cluster: "x86"
+
+    - name: "dns-server"
+      persitent_volume_path: "/app/results/"
+      replicas: 1
+      containers:
+        - name: "dnsmasq"
+          image: "ghcr.io/khalilsantana/mentored-dnsmasq:latest"
+          imagePullPolicy: "Always"
+          command: ["/entry.sh"]
+          args: ["dnsmasq", "--no-daemon"]
+          env:
+            - name: "SERVER_NA_NAME"
+              value: "dns-server"
+            - name: "MENTORED_DNS"
+              value: "/etc/hosts"
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "1000m"
+            limits:
+              memory: "512M"
+              cpu: "2000m"
+      region: "rpi-9-ufmg"
+      cluster: "x86"
+
+
+
+  topology: "None"
