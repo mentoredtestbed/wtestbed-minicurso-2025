@@ -11,9 +11,6 @@ Experiment:
           command: ["iptables-80-22-tshark.sh"]
           securityContext:
             privileged: true
-          env:
-            - name: "TIMEOUT_CMD"
-              value: "1000"
         - name: "server"
           image: "ghcr.io/mentoredtestbed/generic-apache-flask-webserver:latest"
           imagePullPolicy: "Always"
@@ -31,8 +28,8 @@ Experiment:
             limits:
               memory: "2G"
               cpu: "2"
-      region: "v2-k8s-vm1"
-      cluster: "iot"
+      region: "whx-mg"
+      cluster: "x86"
 
     - name: "client-http"
       persitent_volume_path: "/app/results/"
@@ -94,6 +91,6 @@ Experiment:
               memory: "512M"
               cpu: "2000m"
       region: "rpi-8-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
   topology: "None"
