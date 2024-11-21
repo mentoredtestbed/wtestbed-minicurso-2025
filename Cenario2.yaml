@@ -34,8 +34,8 @@ Experiment:
             limits:
               memory: "2G"
               cpu: "2"
-      region: "v2-k8s-vm1"
-      cluster: "iot"
+      region: "whx-mg"
+      cluster: "x86"
 
     - name: "client-http-node-1"
       persitent_volume_path: "/app/results/"
@@ -215,7 +215,7 @@ Experiment:
               memory: "128M"
               cpu: "200m"
       region: "rpi-5-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "client-http-node-6"
       persitent_volume_path: "/app/results/"
@@ -251,7 +251,7 @@ Experiment:
               memory: "128M"
               cpu: "200m"
       region: "rpi-6-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "client-http-node-7"
       persitent_volume_path: "/app/results/"
@@ -287,7 +287,7 @@ Experiment:
               memory: "128M"
               cpu: "200m"
       region: "rpi-7-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "client-http-node-8"
       persitent_volume_path: "/app/results/"
@@ -323,7 +323,7 @@ Experiment:
               memory: "128M"
               cpu: "200m"
       region: "rpi-8-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "iot-vuln-ssh-node-1"
       persitent_volume_path: "/app/results/"
@@ -352,7 +352,7 @@ Experiment:
             limits:
               memory: "2500M"
               cpu: "3000m"
-      region: "rpi-2-ufmg"
+      region: "rpi-9-ufmg"
       cluster: "iot"
 
     - name: "iot-vuln-ssh-node-2"
@@ -382,7 +382,7 @@ Experiment:
             limits:
               memory: "2500M"
               cpu: "3000m"
-      region: "rpi-4-ufmg"
+      region: "rpi-0-ufmg"
       cluster: "iot"
 
     - name: "iot-vuln-ssh-node-3"
@@ -413,7 +413,7 @@ Experiment:
               memory: "2500M"
               cpu: "3000m"
       region: "rpi-6-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "iot-vuln-ssh-node-4"
       persitent_volume_path: "/app/results/"
@@ -443,7 +443,7 @@ Experiment:
               memory: "2500M"
               cpu: "3000m"
       region: "rpi-8-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "attacker-http"
       persitent_volume_path: ["/app/results/", "/app/results/", "/app/results/", "/app/results/"]
@@ -550,6 +550,6 @@ Experiment:
             - name: "MENTORED_PRE_CMD"
               value: "iptables-80-22-tshark.sh"
       region: "rpi-8-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
   topology: "None"
