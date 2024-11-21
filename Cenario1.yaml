@@ -26,7 +26,7 @@ Experiment:
             - containerPort: 80
           env:
             - name: "ENABLE_SLOWLORIS_DEFENSE"
-              value: "true"
+              value: "false"
           resources:
             requests:
               memory: "1G"
