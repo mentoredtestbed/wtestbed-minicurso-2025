@@ -446,7 +446,7 @@ Experiment:
       cluster: "iot"
 
     - name: "attacker-http"
-      persitent_volume_path: ["/app/results/", "/app/results/", "/app/results/", "/app/results/"]
+      persitent_volume_path: ["/app/results/", "/app/results/", "/app/results/", "/app/results/", "/app/results"]
       replicas: 1
       containers:
         - name: "attacker-node-1"
