@@ -1,7 +1,7 @@
 Experiment:
   name: "Cenario-3-rapidreset"
   nodeactors:
-    - name: "backend-server-http"
+    - name: "backend"
       persitent_volume_path: ["/app/results/", "/app/results/"]
       replicas: 1
       containers:
@@ -14,7 +14,7 @@ Experiment:
             privileged: true
           env:
             - name: "SERVER_NA_NAME"
-              value: "backend-server-http"
+              value: "backend"
             - name: "MENTORED_PRE_CMD"
               value: "iptables-80-22-tshark.sh"
         - name: "server"
@@ -28,7 +28,7 @@ Experiment:
             - name: "ENABLE_SLOWLORIS_DEFENSE"
               value: "true"
             - name: "SERVER_NA_NAME"
-              value: "backend-server-http"
+              value: "backend"
           resources:
             requests:
               memory: "1G"
@@ -55,7 +55,7 @@ Experiment:
             - containerPort: 443
           env:
             - name: SERVER_NA_NAME
-              value: "backend-server-http"
+              value: "backend"
             - name: "SSLKEYLOGFILE"
               value: "/var/log/nginx/sslkeylog.log"
           resources:
@@ -74,7 +74,7 @@ Experiment:
             privileged: true
           env:
             - name: "SERVER_NA_NAME"
-              value: "backend-server-http"
+              value: "backend"
             - name: "MENTORED_PRE_CMD"
               value: "iptables-80-22-tshark.sh"
       region: "whx-mg"
@@ -525,7 +525,7 @@ Experiment:
     #         - name: "PASSW_LIST"
     #           value: "10_common_passwords"
     #         - name: "ATTACK_CMD"
-    #           value: "mentored-attack rapidreset server-http net1 300 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+    #           value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
     #       securityContext:
     #         privileged: true
     #       resources:
@@ -563,8 +563,10 @@ Experiment:
               value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
+            - name: "PASSW_LIST"
+              value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 300 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
           securityContext:
             privileged: true
           resources:
@@ -585,8 +587,10 @@ Experiment:
               value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
+            - name: "PASSW_LIST"
+              value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 300 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
           securityContext:
             privileged: true
           resources:
@@ -607,8 +611,10 @@ Experiment:
               value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
+            - name: "PASSW_LIST"
+              value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 300 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
           securityContext:
             privileged: true
           resources:
@@ -629,8 +635,10 @@ Experiment:
               value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
+            - name: "PASSW_LIST"
+              value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 300 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
           securityContext:
             privileged: true
           resources:
