@@ -6,7 +6,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "tshark"
-          image: "ghcr.io/khalilsantana/network-monitor:latest"
+          image: "ghcr.io/khalilsantana/network-monitor:dataset-mentored-iot-2024-v2"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["cp /etc/hosts /app/results/hosts"]
@@ -18,7 +18,7 @@ Experiment:
             - name: "MENTORED_PRE_CMD"
               value: "iptables-80-22-tshark.sh"
         - name: "server"
-          image: "ghcr.io/mentoredtestbed/generic-apache-flask-webserver:latest"
+          image: "ghcr.io/khalilsantana/generic-apache-flask-webserver:dataset-mentored-iot-2024-v1"
           imagePullPolicy: "Always"
           securityContext:
             privileged: true
@@ -42,7 +42,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:latest"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v2"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -78,7 +78,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "attacker"
-          image: "ghcr.io/khalilsantana/generic-botnet:latest"
+          image: "ghcr.io/khalilsantana/generic-botnet:dataset-mentored-iot-2024-v2"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["mentored-attack", "slowloris", "server-http", "net1", "180", "80"]

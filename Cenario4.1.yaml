@@ -6,20 +6,19 @@ Experiment:
       replicas: 1
       containers:
         - name: "tshark"
-          image: "ghcr.io/khalilsantana/network-monitor:latest"
+          image: "ghcr.io/khalilsantana/network-monitor:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
-          command: ["iptables-80-22-tshark.sh"]
+          command: ["/entry.sh"]
+          args: ["cp /etc/hosts /app/results/hosts"]
           securityContext:
             privileged: true
-          resources:
-            requests:
-              memory: "32M"
-              cpu: "50m"
-            limits:
-              memory: "128M"
-              cpu: "200m"
+          env:
+            - name: "SERVER_NA_NAME"
+              value: "backend"
+            - name: "MENTORED_PRE_CMD"
+              value: "iptables-80-22-tshark.sh"
         - name: "broker"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command:
             ["/usr/sbin/mosquitto", "-c", "/etc/mosquitto/mosquitto.conf", "-v"]
@@ -35,28 +34,27 @@ Experiment:
             limits:
               memory: "2500M"
               cpu: "3000m"
-      region: "v2-k8s-vm1"
-      cluster: "iot"
+      region: "whx-mg"
+      cluster: "x86"
 
     - name: "rstp-server"
       persitent_volume_path: ["/app/results/"]
       replicas: 1
       containers:
         - name: "tshark"
-          image: "ghcr.io/khalilsantana/network-monitor:latest"
+          image: "ghcr.io/khalilsantana/network-monitor:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
-          command: ["iptables-80-22-tshark.sh"]
+          command: ["/entry.sh"]
+          args: ["cp /etc/hosts /app/results/hosts"]
           securityContext:
             privileged: true
-          resources:
-            requests:
-              memory: "32M"
-              cpu: "50m"
-            limits:
-              memory: "128M"
-              cpu: "200m"
+          env:
+            - name: "SERVER_NA_NAME"
+              value: "backend"
+            - name: "MENTORED_PRE_CMD"
+              value: "iptables-80-22-tshark.sh"
         - name: "server"
-          image: "ghcr.io/khalilsantana/rstp_stream_server:latest"
+          image: "ghcr.io/khalilsantana/rstp_stream_server:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           # command: ["/usr/sbin/mosquitto", "-c", "/etc/mosquitto/mosquitto.conf", "-v"]
           env:
@@ -123,7 +121,7 @@ Experiment:
       replicas: 4
       containers:
         - name: "mqtt-client-subscriber"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args:
@@ -163,7 +161,7 @@ Experiment:
       replicas: 4
       containers:
         - name: "mqtt-client-subscriber"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args:
@@ -203,7 +201,7 @@ Experiment:
       replicas: 4
       containers:
         - name: "mqtt-client-subscriber"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args:
@@ -243,7 +241,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "mqtt-client-subscriber"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args:
@@ -278,7 +276,7 @@ Experiment:
               memory: "128M"
               cpu: "200m"
         - name: "ip-camera"
-          image: "ghcr.io/khalilsantana/ip_camera:latest"
+          image: "ghcr.io/khalilsantana/ip_camera:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["./ip_camera.py"]
@@ -301,14 +299,14 @@ Experiment:
               memory: "256M"
               cpu: "500m"
       region: "rpi-5-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "mqtt-pub-node-2"
       persitent_volume_path: "/app/results/"
       replicas: 1
       containers:
         - name: "mqtt-client-subscriber"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args:
@@ -343,7 +341,7 @@ Experiment:
               memory: "128M"
               cpu: "200m"
         - name: "ip-camera"
-          image: "ghcr.io/khalilsantana/ip_camera:latest"
+          image: "ghcr.io/khalilsantana/ip_camera:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["./ip_camera.py"]
@@ -366,14 +364,14 @@ Experiment:
               memory: "256M"
               cpu: "500m"
       region: "rpi-6-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "mqtt-pub-node-3"
       persitent_volume_path: "/app/results/"
       replicas: 1
       containers:
         - name: "mqtt-client-subscriber"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args:
@@ -408,7 +406,7 @@ Experiment:
               memory: "128M"
               cpu: "200m"
         - name: "ip-camera"
-          image: "ghcr.io/khalilsantana/ip_camera:latest"
+          image: "ghcr.io/khalilsantana/ip_camera:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["./ip_camera.py"]
@@ -431,14 +429,14 @@ Experiment:
               memory: "256M"
               cpu: "500m"
       region: "rpi-7-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "mqtt-pub-node-4"
       persitent_volume_path: "/app/results/"
       replicas: 1
       containers:
         - name: "mqtt-client-subscriber"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args:
@@ -473,7 +471,7 @@ Experiment:
               memory: "128M"
               cpu: "200m"
         - name: "ip-camera"
-          image: "ghcr.io/khalilsantana/ip_camera:latest"
+          image: "ghcr.io/khalilsantana/ip_camera:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["./ip_camera.py"]
@@ -496,14 +494,14 @@ Experiment:
               memory: "256M"
               cpu: "500m"
       region: "rpi-8-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "iot-vuln-ssh-node-1"
       persitent_volume_path: "/app/results/"
       replicas: 1
       containers:
         - name: "vulnerable"
-          image: "ghcr.io/khalilsantana/mqtt-attacks:latest"
+          image: "ghcr.io/khalilsantana/mqtt-attacks:dataset-mentored-iot-2024-v4"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["/app/vulnerable.sh"]
@@ -531,7 +529,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "vulnerable"
-          image: "ghcr.io/khalilsantana/mqtt-attacks:latest"
+          image: "ghcr.io/khalilsantana/mqtt-attacks:dataset-mentored-iot-2024-v4"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["/app/vulnerable.sh"]
@@ -559,7 +557,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "vulnerable"
-          image: "ghcr.io/khalilsantana/mqtt-attacks:latest"
+          image: "ghcr.io/khalilsantana/mqtt-attacks:dataset-mentored-iot-2024-v4"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["/app/vulnerable.sh"]
@@ -580,14 +578,14 @@ Experiment:
               memory: "128M"
               cpu: "200m"
       region: "rpi-6-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "iot-vuln-ssh-node-4"
       persitent_volume_path: "/app/results/"
       replicas: 1
       containers:
         - name: "vulnerable"
-          image: "ghcr.io/khalilsantana/mqtt-attacks:latest"
+          image: "ghcr.io/khalilsantana/mqtt-attacks:dataset-mentored-iot-2024-v4"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["/app/vulnerable.sh"]
@@ -608,27 +606,26 @@ Experiment:
               memory: "128M"
               cpu: "200m"
       region: "rpi-8-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
     - name: "attacker-mqtt"
       persitent_volume_path: ["/app/results/", "/app/results/", "/app/results/", "/app/results/", "/app/results/"]
       replicas: 1
       containers:
         - name: "tshark"
-          image: "ghcr.io/khalilsantana/network-monitor:latest"
+          image: "ghcr.io/khalilsantana/network-monitor:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
-          command: ["iptables-80-22-tshark.sh"]
+          command: ["/entry.sh"]
+          args: ["cp /etc/hosts /app/results/hosts"]
           securityContext:
             privileged: true
-          resources:
-            requests:
-              memory: "32M"
-              cpu: "50m"
-            limits:
-              memory: "128M"
-              cpu: "200m"
+          env:
+            - name: "SERVER_NA_NAME"
+              value: "backend"
+            - name: "MENTORED_PRE_CMD"
+              value: "iptables-80-22-tshark.sh"
         - name: "attacker-node-1"
-          image: "ghcr.io/khalilsantana/infection-scenario:latest"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["python3", "attacker.py", "iot-vuln-ssh-node-1"]
@@ -674,7 +671,7 @@ Experiment:
               memory: "256M"
               cpu: "100m"
         - name: "attacker-node-3"
-          image: "ghcr.io/khalilsantana/infection-scenario:latest"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["python3", "attacker.py", "iot-vuln-ssh-node-3"]
@@ -697,7 +694,7 @@ Experiment:
               memory: "256M"
               cpu: "100m"
         - name: "attacker-node-4"
-          image: "ghcr.io/khalilsantana/infection-scenario:latest"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["python3", "attacker.py", "iot-vuln-ssh-node-4"]
@@ -720,6 +717,6 @@ Experiment:
               memory: "256M"
               cpu: "100m"
       region: "rpi-9-ufmg"
-      cluster: "x86"
+      cluster: "iot"
 
   topology: "None"
