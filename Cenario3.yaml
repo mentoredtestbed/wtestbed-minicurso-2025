@@ -523,7 +523,7 @@ Experiment:
             - name: "PASSW_LIST"
               value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 3 -concurrency=127"
           securityContext:
             privileged: true
           resources:
@@ -547,7 +547,7 @@ Experiment:
             - name: "PASSW_LIST"
               value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 3 -concurrency=127"
           securityContext:
             privileged: true
           resources:
@@ -571,7 +571,7 @@ Experiment:
             - name: "PASSW_LIST"
               value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 3 -concurrency=127"
           securityContext:
             privileged: true
           resources:
@@ -595,7 +595,7 @@ Experiment:
             - name: "PASSW_LIST"
               value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 3 -concurrency=127"
           securityContext:
             privileged: true
           resources:
