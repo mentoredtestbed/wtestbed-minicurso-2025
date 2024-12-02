@@ -39,7 +39,7 @@ Experiment:
 
     - name: "client-http"
       persitent_volume_path: "/app/results/"
-      replicas: 1
+      replicas: 10
       containers:
         - name: "client-static"
           image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v2"
