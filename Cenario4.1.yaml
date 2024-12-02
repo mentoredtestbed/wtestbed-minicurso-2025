@@ -73,7 +73,7 @@ Experiment:
             limits:
               memory: "2500M"
               cpu: "3000m"
-      region: "k8s-worker3"
+      region: "whx-mg"
       cluster: "x86"
 
     - name: "mqtt-sub-node-1"

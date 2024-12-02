@@ -505,47 +505,6 @@ Experiment:
       region: "rpi-8-ufmg"
       cluster: "iot"
 
-
-    # - name: "attacker-rpi-3-vulnerable-rpi-2"
-    #   persitent_volume_path: ["/app/results/", "/app/results/"]
-    #   replicas: 1
-    #   containers:
-    #     - name: "attacker"
-    #       image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v2"
-    #       imagePullPolicy: "Always"
-    #       command: ["/entry.sh"]
-    #       args: ["python3", "attacker.py", "vulnerable-rpi-2"]
-    #       env:
-    #         - name: "TIMEOUT_CMD"
-    #           value: "1000"
-    #         - name: "TIME_WAIT_START"
-    #           value: "15"
-    #         - name: "PASSW_LIST"
-    #           value: "10_common_passwords"
-    #         - name: "ATTACK_CMD"
-    #           value: "mentored-attack rapidreset server-http net1 180 443 -requests=99999 -wait=100 -delay=10 -concurrency=5"
-    #       securityContext:
-    #         privileged: true
-    #       resources:
-    #         requests:
-    #           memory: "256Mi"
-    #           cpu: "1000m"
-    #         limits:
-    #           memory: "512M"
-    #           cpu: "2000m"
-    #     - name: "tshark"
-    #       image: "ghcr.io/khalilsantana/network-monitor:dataset-mentored-iot-2024-v2"
-    #       imagePullPolicy: "Always"
-    #       command: ["iptables-80-22-tshark.sh"]
-    #       securityContext:
-    #         privileged: true
-    #       env:
-    #         - name: "TIMEOUT_CMD"
-    #           value: "1000"
-    #   region: "rpi-3-ufmg"
-    #   cluster: "iot"
-
-
     - name: "attacker-http"
       persitent_volume_path: ["/app/results/", "/app/results/", "/app/results/", "/app/results/", "/app/results"]
       replicas: 1
