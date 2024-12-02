@@ -81,7 +81,7 @@ Experiment:
       replicas: 4
       containers:
         - name: "mqtt-client-subscriber"
-          image: "ghcr.io/khalilsantana/mqtt-simple:latest"
+          image: "ghcr.io/khalilsantana/mqtt-simple:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args:
@@ -648,7 +648,7 @@ Experiment:
               memory: "256M"
               cpu: "100m"
         - name: "attacker-node-2"
-          image: "ghcr.io/khalilsantana/infection-scenario:latest"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v3"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["python3", "attacker.py", "iot-vuln-ssh-node-2"]
