@@ -84,7 +84,7 @@ Experiment:
           args: ["mentored-attack", "slowloris", "server-http", "net1", "180", "80"]
           env:
             - name: "TIME_WAIT_START"
-              value: "120"
+              value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
           securityContext:
