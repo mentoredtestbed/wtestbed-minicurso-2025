@@ -56,8 +56,6 @@ Experiment:
           env:
             - name: SERVER_NA_NAME
               value: "backend"
-            - name: "SSLKEYLOGFILE"
-              value: "/var/log/nginx/sslkeylog.log"
           resources:
             requests:
               memory: "500M"
