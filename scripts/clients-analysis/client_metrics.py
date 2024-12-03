@@ -67,12 +67,9 @@ if __name__ == '__main__':
     group2_errors = 0
     group3_errors = 0
     for data in csv_data:
-        # Ignore the first 5 entries that can contain noise data
         if len(data) == 0:
             continue
-        
-        data = data[5:, :]
-        
+                
         group1 = data[data[:, 0] < preattack]
         group2 = data[(data[:, 0] >= preattack) & (data[:, 0] < postattack)]
         group3 = data[data[:, 0] >= postattack]
