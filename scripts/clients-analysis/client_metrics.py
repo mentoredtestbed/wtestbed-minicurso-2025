@@ -1,47 +1,25 @@
 import os
+import sys
 import numpy as np
 import argparse
+import logging
+logger = logging.getLogger()
 from tqdm import tqdm
 
+
 def read_csv_files(directory):
-    # # csv_files = [file for file in os.listdir(directory) if file.endswith('.csv')]
-    # dirs = [file for file in os.listdir(directory)]
-    
-
-    # # for each directory in dirs, get the csv file inside it
-    # data = []
-    # for dir in dirs:
-    #     csv_files = [file for file in os.listdir(os.path.join(directory, dir)) if file.endswith('.csv')]
-    #     for file in tqdm(csv_files):
-    #         file_path = os.path.join(directory, dir, file)
-    #         with open(file_path, 'r') as f:
-    #             lines = f.readlines()[1:]  # Ignore the first line (headers)
-    #             csv_data = np.genfromtxt(lines, delimiter=',')
-    #             data.append(csv_data)
-    # print(csv_files)
-
     data = []
 
     # Walk through all subdirectories and files
     for root, _, files in os.walk(directory):
         csv_files = [file for file in files if file.endswith('.csv')]
-        print(csv_files)
+        logger.debug(csv_files)
         for file in tqdm(csv_files, desc="Processing CSV files"):
             file_path = os.path.join(root, file)
             with open(file_path, 'r') as f:
                 lines = f.readlines()[1:]  # Ignore the first line (headers)
                 csv_data = np.genfromtxt(lines, delimiter=',', dtype=float)
                 data.append(csv_data)
-
-    # data = []
-    
-    # for file in tqdm(csv_files):
-    #     file_path = os.path.join(directory, file)
-    #     with open(file_path, 'r') as f:
-    #         lines = f.readlines()[1:]  # Ignore the first line (headers)
-    #         csv_data = np.genfromtxt(lines, delimiter=',')
-    #         data.append(csv_data)
-    # print(data)
     return data
 
 if __name__ == '__main__':
@@ -50,8 +28,12 @@ if __name__ == '__main__':
 
     parser.add_argument('-a', '--attack', type=int, help='Attack time in seconds')
     parser.add_argument('-p', '--postattack', type=int, help='Post time in seconds')
+    parser.add_argument('-d', '--debug', action='store_true', help='Enable debug mode')
 
     args = parser.parse_args()
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(levelname)s - %(message)s')
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
 
     csv_data = read_csv_files(args.directory)
 
@@ -93,6 +75,6 @@ if __name__ == '__main__':
     group3_mean = np.mean(group3_list, axis=0)
 
     # get the number of NAN values in group2
-    print(f'Average time for client response (Before {preattack} seconds)    : {group1_mean:.3f} - {group1_errors} errors')
-    print(f'Average time for client response ({preattack} - {postattack} seconds)      : {group2_mean:.3f} - {group2_errors} errors')
-    print(f'Average time for client response (After {postattack} seconds)     : {group3_mean:.3f} - {group3_errors} errors')
+    logger.info(f'Average time for client response (Before {preattack} seconds)    : {group1_mean:.3f} - {group1_errors} errors')
+    logger.info(f'Average time for client response ({preattack} - {postattack} seconds)      : {group2_mean:.3f} - {group2_errors} errors')
+    logger.info(f'Average time for client response (After {postattack} seconds)     : {group3_mean:.3f} - {group3_errors} errors')
