@@ -3,9 +3,13 @@ import sys
 import numpy as np
 import argparse
 import logging
+import tarfile
+import shutil
+import subprocess
 logger = logging.getLogger()
 from tqdm import tqdm
 
+temp_dir=".tmp_exp_analyzer"
 
 def read_csv_files(directory):
     data = []
@@ -22,9 +26,43 @@ def read_csv_files(directory):
                 data.append(csv_data)
     return data
 
+def extract_experiment_data(expfile, temp_dir):    
+    # Step 1: Create the temporary directory
+    os.makedirs(temp_dir, exist_ok=True)
+    
+    # Step 2: Extract the experiment file
+    logger.info(f"Extracting {expfile}")
+    with tarfile.open(expfile, "r:gz") as tar:
+        tar.extractall(temp_dir, members=(m for m in tar if "client" in m.name))
+    logger.debug(f"Contents of {temp_dir}:")
+    logger.debug(os.listdir(temp_dir))
+    logger.info(f"Extracted {expfile}")
+    
+    for root, _, files in os.walk(temp_dir):
+        for file in files:
+            if file.endswith(".tar"):
+                tar_path = os.path.join(root, file)
+                with tarfile.open(tar_path, "r") as tar:
+                    tar.extractall()
+                
+                client_delay_csv = "app/results/client_delay.csv"
+                if os.path.exists(client_delay_csv):
+                    new_csv_name = f"{tar_path}.csv"
+                    os.rename(client_delay_csv, new_csv_name)
+                
+                # Clean up the extracted app directory
+                if os.path.exists("app"):
+                    shutil.rmtree("app")
+
+def cleanup_experiment_data(temp_dir):
+    shutil.rmtree(temp_dir)
+
+
+    
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Read CSV files from a directory')
-    parser.add_argument('directory', type=str, help='Directory containing CSV files')
+    parser.add_argument('experiment_file', type=str, help='File containing the experiment data (tar.gz)')
 
     parser.add_argument('-a', '--attack', type=int, help='Attack time in seconds')
     parser.add_argument('-p', '--postattack', type=int, help='Post time in seconds')
@@ -35,7 +73,9 @@ if __name__ == '__main__':
     if args.debug:
         logger.setLevel(logging.DEBUG)
 
-    csv_data = read_csv_files(args.directory)
+    extract_experiment_data(args.experiment_file, temp_dir)
+
+    csv_data = read_csv_files(temp_dir)
 
     # Separate the date of each csv in three groups. The first is the lines where the time (second column) if less than 60, thhe second group is between 60 and 180 and the third is above 180
 
@@ -78,3 +118,5 @@ if __name__ == '__main__':
     logger.info(f'Average time for client response (Before {preattack} seconds)    : {group1_mean:.3f} - {group1_errors} errors')
     logger.info(f'Average time for client response ({preattack} - {postattack} seconds)      : {group2_mean:.3f} - {group2_errors} errors')
     logger.info(f'Average time for client response (After {postattack} seconds)     : {group3_mean:.3f} - {group3_errors} errors')
+
+    cleanup_experiment_data(temp_dir)

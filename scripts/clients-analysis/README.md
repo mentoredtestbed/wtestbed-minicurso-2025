@@ -19,8 +19,8 @@ cp ~/Downloads/$MY_EXP_FILE .
 ```bash
 sudo docker run --rm -it \
     -v .:/app ghcr.io/khalilsantana/dataset-mentored-iot-2024 \
-    /app/scripts/clients-analysis/create_client_metrics.sh \
-    ../../$MY_EXP_FILE $MY_ATTACK_START $MY_ATTACK_END
+    python3 /app/scripts/clients-analysis/client_metrics.py \
+    ../../$MY_EXP_FILE -a $MY_ATTACK_START -p $MY_ATTACK_END
 ```
 
 3) Observe os resultados, a exemplo abaixo:
