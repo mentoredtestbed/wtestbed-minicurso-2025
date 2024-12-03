@@ -64,7 +64,7 @@ Esse cenário, descrito em `Cenario1.yaml` pretende demonstrar o funcionamento b
 
 * Restauração parcial ou total da conectividade dos clientes
 
-#### Executando o ataque
+#### Executando o cenário
 
 1) Inspecionar o YAML que define o experimento, notando as imagens em uso, assim como as variáveis de ambiente configuradas.
 
@@ -163,4 +163,88 @@ Por fim, experimente repetir execuções do experimento para verificar sua repro
 
 ### Cenário 2) Ataque DDoS Layer3 volumétrico
 
-# TODO
+Esse cenário, descrito em `Cenario2.yaml` pretende a escalabilidade do testbed. Sua execução consistem em 4 tipos de entidades, dentre elas inúmeras replicas de clientes HTTP, simulando um cenário de maior escala.
+
+#### Entidades
+
+1) Servidor Web Apache: servindo uma página Web estática para clientes via HTTP 1.1
+
+2) Clientes Web: um cliente HTTP 1.1 escrito em Python 3 executando requisições periódicas ao servidor web
+
+3) Atacante: um node actor com quatro containers, cada um realizando ataques de bruteforce SSH contra um nó especifico. O segundo estágio deste ataque é a execução de um flood TCP SYN utilizando a ferrenta hping3 partindo dos nós comprometidos.
+
+4) Nós vulneráveis: node actors (entidades) que simulam um dispositivo IoT qualquer com a porta 22/TCP (SSH) exposta para a internet, com uma senha simples
+
+#### Fluxo / Timeline
+
+* Duração 300 segundos
+* [0-59s] Clientes legítimos realizam requisições normalmente contra o servidor Web
+
+* [60-240s] Atacante inicia tentativas de bruteforce SSH contra os nós vulneráveis. Tais nós quando comprometidos iniciam o ataque previamente descrito por 180 segundos.
+
+* [240-300s] Apenas clientes legítimos e o servidor Web estão ativos
+
+#### Dados coletados por entidade
+
+* Todos:
+  
+  * Logs do script de inicialização
+  
+  * IPs de cada nó
+  
+  * Tempo de inicialização do experimento
+
+* Servidor Web:
+  
+  * Captura de tráfego de rede
+  
+  * Logs do Apache 2
+
+* Cliente:
+  
+  * CSV contando a latência de cada requisição ou um erro demarcando falha na conexão
+
+* Atacante:
+  
+  * Registro (timestamp) do início e fim do ataque SSH
+
+* Nó IoT Vulnerável:
+  * Registros do inicio e fim do ataque hping3
+  * Logs de acesso do servidor SSH
+
+#### Resultados esperados
+
+* Funcionamento normal pré-ataque
+
+* Experiência de acesso dos clientes degradada, demonstrada pela elevação no tempo de resposta elevado durante o ataque
+
+* Restauração parcial ou total da conectividade dos clientes
+
+#### Executando o cenário
+
+Siga os mesmos processos detalhados neste passo do cenário anterior, isto é, navegar pelo portal e criar uma definição de experimento, desta vez utilizando o Cenario2.yaml como base.
+
+> ![IMPORTANT] Este cenário conta com 326 nós ao todo, a o processo de warmup (inicialização) do cenário demora cerca de 15-30min, seguido da execução do experimento, novamente de 300 segundos, seguido do processo de salvamento dos dados, o qual também pode demorar 15-30min. Otimizações a ambos os processos de warmup e salvamento estão sendo discutidas. Experimente a página "Informações do Cluster" no painel esquerdo durante esse periodo!
+
+> ![alt text](img/Criação-de-Experimento-09.png)
+
+#### Análise dos resultados
+
+
+Primeiramente é possivel observar que o tamanho dos registros do experimento são significativamente maiores, contando com  ~150 MB de dados comprimidos, dentre eles um arquivo de captura de tráfego de rede (`.PCAPNG`) de 2.5GB. Tal volume de dados é esperado tendo em vista a natureza volumétrica deste ataque.
+
+Para a análise deste cenário, é recomendado o uso da ferramenta de análise em `scripts/client-analysis`, vide o `README.md` de tal pasta e siga os passos para obter os resultados da análise. Abaixo um exemplo do seu resultado esperado:
+
+```
+Processing CSV files: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████| 40/40 [00:00<00:00, 4302.51it/s]
+Average time for client response (Before 60 seconds)    : 0.043 - 29 errors
+Average time for client response (60 - 240 seconds)      : 0.698 - 1991 errors
+Average time for client response (After 240 seconds)     : 0.013 - 0 errors
+Experiment analyzer finished
+```
+
+Neste caso, a latência média no periodo pré-ataque foi de 0.043 segundos (43ms) e existiram 29 erros de conectividade. Já durante o ataque há uma latência média de aproximadamente 700ms e foram registrados 1991 erros de conectividade. Isto é, o ataque obteve sucesso em degradar a conectividade dos clientes ao servidor Web. Por fim, após o ataque a conectividade volta ao normal, com todos os clientes sendo capazes de acessar o serviço Web e a latência normalizada.
+
+Em seguida podemos gerar um gráfico de vazão da interface do servidor Web deste cenário utilizando as ferramentas de análise de dados do servidor. Para isso
+
+Como demonstrado por este esperimento, um grande número de nós (326) pode ser representado no MENTORED _testbed_, mesmo considerando que os dispositivos em uso são de desempenho modesto (em maioria, Raspberry Pis 4 de 4G), assim como a utilização de um único access point Wi-Fi.
