@@ -67,12 +67,28 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
     plt.savefig(f'../output_{freq}.png', dpi=300)
 
 
-def filter_to_experiment_duration(data, timestamp_start, duration):
-    # Convert unix timestamp to hours, like: 19:33:32.399970
-    timestamp_start = pd.Timestamp(timestamp_start, unit='s')
-    data = data[data.index >= timestamp_start]
-    data = data[data.index <= timestamp_start + pd.Timedelta(seconds=duration)]
-    return data
+def filter_to_experiment_duration(data, unix_timestamp, duration):
+    #  For a DF with:
+    # Timestamp,Packet Size
+    # 19:33:32.399970,60
+    # Filter the data such that only the data between unix_timestamp and unix_timestamp + duration is kept
+    # The Timestamp column is in the format %H:%M:%S.%f
+    # The unix_timestamp is in seconds since the unix epoch
+    # The duration is in seconds
+
+    start_time = pd.Timestamp(unix_timestamp, unit='s')
+    # get hours only from start time
+    # Consider that the data PD timestamps don't have a date, only the time
+    start_time = start_time.replace(year=1900, day=1, month=1)
+    end_time = start_time + pd.Timedelta(seconds=duration)
+    data_start = data['Timestamp'].iloc[0]
+    data_start = pd.Timestamp(data_start, unit='s')
+
+    print(f"Start capture data: {data_start}")
+    filtered_data = data[(data['Timestamp'] >= start_time) & (data['Timestamp'] <= end_time)]
+    print(f"Start time: {start_time}")
+    print(filtered_data)
+    return filtered_data
 
 def main():
     parser = argparse.ArgumentParser()
@@ -89,7 +105,7 @@ def main():
     freq_options = {'S': 'Second'}
 
     data = read_data(file_path)
-    # data = filter_to_experiment_duration(data, args.unix_timestamp, args.time)
+    data = filter_to_experiment_duration(data, args.unix_timestamp, args.time)
 
     for freq, label in tqdm(freq_options.items(), desc="Computing and plotting metrics"):
         throughput, packet_counts = compute_metrics(data, freq=freq)
