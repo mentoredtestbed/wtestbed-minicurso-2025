@@ -29,7 +29,7 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
     expected_time = pd.Timedelta(seconds=expected_time)
     color = 'tab:red'
     ax1.set_xlabel('Tempo (segundos)', fontsize=fontsize, fontweight='bold')
-    ax1.set_ylabel('Vazão (MB)', color=color, fontsize=fontsize, fontweight='bold')
+    ax1.set_ylabel('Vazão (Mbps)', color=color, fontsize=fontsize, fontweight='bold')
 
     # Plot x axis as time
     # "Recover" the initial part not captured in the pcap file
@@ -39,8 +39,9 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
     print(expected_time)
     if max(data_x) < expected_time:
         data_x = data_x + (expected_time - max(data_x))
-   
-    ax1.plot(data_x/1000000000, throughput.values/(2**20), color=color)
+
+    # Converte throughput de bytes para Megabits
+    ax1.plot(data_x/1000000000, throughput.values * 8 / 1_000_000, color=color)
     ax1.tick_params(axis='y', labelcolor=color)
 
     ax2 = ax1.twinx()
