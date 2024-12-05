@@ -1,7 +1,7 @@
 Experiment:
   name: "Cenario-3-rapidreset"
   nodeactors:
-    - name: "backend"
+    - name: "backend-server"
       persitent_volume_path: ["/app/results/", "/app/results/"]
       replicas: 1
       containers:
@@ -14,7 +14,7 @@ Experiment:
             privileged: true
           env:
             - name: "SERVER_NA_NAME"
-              value: "backend"
+              value: "backend-server"
             - name: "MENTORED_PRE_CMD"
               value: "iptables-80-22-tshark.sh"
         - name: "server"
@@ -28,7 +28,7 @@ Experiment:
             - name: "ENABLE_SLOWLORIS_DEFENSE"
               value: "true"
             - name: "SERVER_NA_NAME"
-              value: "backend"
+              value: "backend-server"
           resources:
             requests:
               memory: "1G"
@@ -55,7 +55,7 @@ Experiment:
             - containerPort: 443
           env:
             - name: SERVER_NA_NAME
-              value: "backend"
+              value: "backend-server"
           resources:
             requests:
               memory: "500M"
@@ -72,7 +72,7 @@ Experiment:
             privileged: true
           env:
             - name: "SERVER_NA_NAME"
-              value: "backend"
+              value: "backend-server"
             - name: "MENTORED_PRE_CMD"
               value: "iptables-80-22-tshark.sh"
       region: "whx-mg"

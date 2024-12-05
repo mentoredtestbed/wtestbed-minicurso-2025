@@ -14,7 +14,7 @@ Experiment:
             privileged: true
           env:
             - name: "SERVER_NA_NAME"
-              value: "backend-server-http"
+              value: "server-http"
             - name: "MENTORED_PRE_CMD"
               value: "iptables-80-22-tshark.sh"
         - name: "server"
