@@ -549,7 +549,7 @@ Experiment:
               value: "server-http"
             - name: "MENTORED_PRE_CMD"
               value: "iptables-80-22-tshark.sh"
-      region: "rpi-8-ufmg"
+      region: "rpi-9-ufmg"
       cluster: "iot"
 
   topology: "None"
