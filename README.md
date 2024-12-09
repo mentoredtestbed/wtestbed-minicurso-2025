@@ -252,3 +252,81 @@ Em seguida podemos gerar um gráfico de vazão da interface do servidor Web dest
 
 
 Como demonstrado por este esperimento, um grande número de nós (326) pode ser representado no MENTORED _testbed_, mesmo considerando que os dispositivos em uso são de desempenho modesto (em maioria, Raspberry Pis 4 de 4G), assim como a utilização de um único access point Wi-Fi.
+
+### Cenário 3 - HTTP/2 RAPID RESET
+
+Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um ataque recente no MENTORED _testbed_. Em específico, o HTTP/2 RAPID RESET, o qual é melhor explicado [neste blog post da Cloudflare](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/).
+
+
+#### Entidades
+
+1) Servidor Web Apache: servindo uma página Web estática via HTTP 1.1
+
+2) Proxy Reverso Nginx: um servidor Nginx agindo como proxy reverso para o servidor supracitado, servindo conexões HTTP/2 via HTTPS para clientes
+
+2) Clientes Web: um cliente HTTP/2 escrito em Python 3 executando requisições periódicas ao servidor web, com criptografia TLS (HTTPS)
+
+3) Atacante: um node actor com quatro containers, cada um realizando ataques de bruteforce SSH contra um nó especifico. O segundo estágio deste ataque é a execução do ataque HTTP/2 RAPID RESET, em especifico [esta implementação de tal ataque](https://github.com/secengjeff/rapidresetclient).
+
+4) Nós vulneráveis: node actors (entidades) que simulam um dispositivo IoT qualquer com a porta 22/TCP (SSH) exposta para a internet, com uma senha simples
+
+
+#### Fluxo / Timeline
+
+* Duração 300 segundos
+* [0-59s] Clientes legítimos realizam requisições normalmente contra o servidor Web
+
+* [60-240s] Atacante inicia tentativas de bruteforce SSH contra os nós vulneráveis. Tais nós quando comprometidos iniciam o ataque previamente descrito por 180 segundos.
+
+* [240-300s] Apenas clientes legítimos e o servidor Web estão ativos
+
+#### Dados coletados por entidade
+
+* Todos:
+  
+  * Logs do script de inicialização
+  
+  * IPs de cada nó
+  
+  * Tempo de inicialização do experimento
+
+* Servidor Web Apache:
+  
+  * Captura de tráfego de rede
+  
+  * Logs do Apache 2
+
+* Proxy Reverso Nginx:
+
+  * Logs de acesso
+  
+  * Captura de tráfego de rede
+
+* Cliente:
+  
+  * CSV contando a latência de cada requisição ou um erro demarcando falha na conexão
+
+* Atacante:
+  
+  * Registro (timestamp) do início e fim do ataque SSH
+
+* Nó IoT Vulnerável:
+  * Registros do inicio e fim do ataque rapidreset
+  * Logs de acesso do servidor SSH
+
+#### Executando o cenário
+
+Siga os mesmos processos detalhados neste passo do cenário 1, isto é, navegar pelo portal e criar uma definição de experimento, desta vez utilizando o Cenario2.yaml como base.
+
+#### Análise dos resultados
+
+Similarmente ao cenário anterior, utilize as ferramentas de análise dados do cliente e servidor para extrair conhecimento sobre a efetividade deste ataque. Abaixo os resultados do experimento:
+
+```
+INFO - Average time for client response (Before 60 seconds)    : 0.062 - 0 errors
+INFO - Average time for client response (60 - 240 seconds)      : 0.127 - 5 errors
+INFO - Average time for client response (After 240 seconds)     : 0.094 - 1 errors
+```
+
+![alt text](img/C3-RapidReset.png)
+
