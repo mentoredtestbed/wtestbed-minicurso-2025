@@ -54,7 +54,7 @@ Experiment:
             - containerPort: 80
             - containerPort: 443
           env:
-            - name: SERVER_NA_NAME
+            - name: "SERVER_NA_NAME"
               value: "backend-server"
           resources:
             requests:
@@ -523,7 +523,7 @@ Experiment:
             - name: "PASSW_LIST"
               value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 3 -concurrency=127"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 50 -delay 10 -concurrency=50"
           securityContext:
             privileged: true
           resources:
@@ -547,7 +547,7 @@ Experiment:
             - name: "PASSW_LIST"
               value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 3 -concurrency=127"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 50 -delay 10 -concurrency=50"
           securityContext:
             privileged: true
           resources:
@@ -571,7 +571,7 @@ Experiment:
             - name: "PASSW_LIST"
               value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 3 -concurrency=127"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 50 -delay 10 -concurrency=50"
           securityContext:
             privileged: true
           resources:
@@ -595,7 +595,7 @@ Experiment:
             - name: "PASSW_LIST"
               value: "10_common_passwords"
             - name: "ATTACK_CMD"
-              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 3 -concurrency=127"
+              value: "mentored-attack rapidreset server-http net1 180 443 -requests=999999999 -wait 50 -delay 10 -concurrency=50"
           securityContext:
             privileged: true
           resources:
