@@ -21,7 +21,7 @@ sudo docker run --rm -it \
     /app/scripts/server-analysis/experiment_analyzer.sh ../../$MY_EXP_FILE $MY_EXP_DURATION
 ```
 
-3) Observe os resultados, em `scripts/server-analysis/output_Second.png`
+3) Observe os resultados, em `scripts/server-analysis/output_${TIMESTAMP}.png`
 
 
 ![alt text](../../img/C2-Vazão-e-pacotes.png)

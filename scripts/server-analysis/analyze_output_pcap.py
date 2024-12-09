@@ -65,7 +65,8 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
     ax1.tick_params(axis='both', which='major', labelsize=fontsize)
     ax2.tick_params(axis='both', which='major', labelsize=fontsize)
 
-    plt.savefig(f'../output_{freq}.png', dpi=300)
+    timestamp = pd.Timestamp.now().strftime('%Y-%m-%d_%H-%M-%S')
+    plt.savefig(f'../output_{freq}-{timestamp}.png', dpi=300)
 
 
 def filter_to_experiment_duration(data, unix_timestamp, duration):
