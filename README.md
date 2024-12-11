@@ -317,7 +317,7 @@ Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um 
 
 #### Executando o cenário
 
-Siga os mesmos processos detalhados neste passo do cenário 1, isto é, navegar pelo portal e criar uma definição de experimento, desta vez utilizando o Cenario2.yaml como base.
+Siga os mesmos processos detalhados neste passo do cenário 1, isto é, navegar pelo portal e criar uma definição de experimento, desta vez utilizando o Cenario3.yaml como base.
 
 #### Análise dos resultados
 
