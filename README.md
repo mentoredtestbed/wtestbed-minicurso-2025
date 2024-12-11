@@ -91,7 +91,7 @@ Esse cenário, descrito em `Cenario1.yaml` pretende demonstrar o funcionamento b
 
 ![alt text](img/Criação-de-Experimento-05.png)
 
-8) Aguarde o período de Warm-up finalizar (~30 segundos), e em seguida clique no ícone de monitor para inspecionar a execução do experimento. Nessa tela, busque o cliente, clique para selecionar o mesmo, e então no terminal criado execute o comando para ver o conteúdo do arquivo de log sendo gerado: `tail -f /app/result/client_delay.csv`
+8) Aguarde o período de Warm-up finalizar (~30 segundos), e em seguida clique no ícone de monitor para inspecionar a execução do experimento. Nessa tela, busque o cliente, clique para selecionar o mesmo, e então no terminal criado execute o comando para ver o conteúdo do arquivo de log sendo gerado: `tail -f /app/results/client_delay.csv`
 
 ![alt text](img/Criação-de-Experimento-06.png)
 
