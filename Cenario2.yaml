@@ -42,7 +42,7 @@ Experiment:
       replicas: 40
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -78,7 +78,7 @@ Experiment:
       replicas: 40
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -114,7 +114,7 @@ Experiment:
       replicas: 40
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -150,7 +150,7 @@ Experiment:
       replicas: 40
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -186,7 +186,7 @@ Experiment:
       replicas: 40
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -222,7 +222,7 @@ Experiment:
       replicas: 40
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -258,7 +258,7 @@ Experiment:
       replicas: 40
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -294,7 +294,7 @@ Experiment:
       replicas: 40
       containers:
         - name: "client-static"
-          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/generic-client:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["random-requests.sh"]
@@ -330,7 +330,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "vulnerable"
-          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ['./vulnerable.sh']
@@ -360,7 +360,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "vulnerable"
-          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ['./vulnerable.sh']
@@ -390,7 +390,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "vulnerable"
-          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ['./vulnerable.sh']
@@ -420,7 +420,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "vulnerable"
-          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ['./vulnerable.sh']
@@ -450,7 +450,7 @@ Experiment:
       replicas: 1
       containers:
         - name: "attacker-node-1"
-          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["python3", "attacker.py", "iot-vuln-ssh-node-1"]
@@ -460,6 +460,8 @@ Experiment:
               value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
+            - name: "PASSW_LIST"
+              value: "10_common_passwords"
             - name: "ATTACK_CMD"
               value: "mentored-attack hping3 server-http net1 180 80 -S --flood -d 1024"
           securityContext:
@@ -472,7 +474,7 @@ Experiment:
               memory: "512M"
               cpu: "2000m"
         - name: "attacker-node-2"
-          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["python3", "attacker.py", "iot-vuln-ssh-node-2"]
@@ -482,6 +484,8 @@ Experiment:
               value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
+            - name: "PASSW_LIST"
+              value: "10_common_passwords"
             - name: "ATTACK_CMD"
               value: "mentored-attack hping3 server-http net1 180 80 -S --flood -d 1024"
           securityContext:
@@ -494,7 +498,7 @@ Experiment:
               memory: "512M"
               cpu: "2000m"
         - name: "attacker-node-3"
-          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["python3", "attacker.py", "iot-vuln-ssh-node-3"]
@@ -504,6 +508,8 @@ Experiment:
               value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
+            - name: "PASSW_LIST"
+              value: "10_common_passwords"
             - name: "ATTACK_CMD"
               value: "mentored-attack hping3 server-http net1 180 80 -S --flood -d 1024"
           securityContext:
@@ -516,7 +522,7 @@ Experiment:
               memory: "512M"
               cpu: "2000m"
         - name: "attacker-node-4"
-          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/infection-scenario:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["python3", "attacker.py", "iot-vuln-ssh-node-4"]
@@ -526,6 +532,8 @@ Experiment:
               value: "60"
             - name: "SERVER_NA_NAME"
               value: "server-http"
+            - name: "PASSW_LIST"
+              value: "10_common_passwords"
             - name: "ATTACK_CMD"
               value: "mentored-attack hping3 server-http net1 180 80 -S --flood -d 1024"
           securityContext:
@@ -538,7 +546,7 @@ Experiment:
               memory: "512M"
               cpu: "2000m"
         - name: "tshark"
-          image: "ghcr.io/khalilsantana/network-monitor:dataset-mentored-iot-2024-v1"
+          image: "ghcr.io/khalilsantana/network-monitor:dataset-mentored-iot-2024-v5"
           imagePullPolicy: "Always"
           command: ["/entry.sh"]
           args: ["cp /etc/hosts /app/results/hosts"]
