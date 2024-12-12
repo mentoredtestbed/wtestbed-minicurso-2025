@@ -23,6 +23,8 @@ Esse cenário, descrito em `Cenario1.yaml` pretende demonstrar o funcionamento b
 
 3) Atacante: um nó realizando o ataque de negação de serviço Layer 7 (camada de aplicação) denominado Slowloris contra o servidor Web
 
+![alt text](img/Diagramas-Cenários-Distribuição-C1.png)
+
 #### Fluxo / Timeline
 
 * Duração 300 segundos
@@ -31,6 +33,8 @@ Esse cenário, descrito em `Cenario1.yaml` pretende demonstrar o funcionamento b
 * [60-240s] Atacante performa um ataque durando 180s contra o servidor
 
 * [240-300s] Apenas clientes legítimos e o servidor Web estão ativos
+
+![alt text](img/Diagramas-Cenários-Timeline-C1.png)
 
 #### Dados coletados por entidade
 
@@ -331,3 +335,6 @@ INFO - Average time for client response (After 240 seconds)     : 0.094 - 1 erro
 
 ![alt text](img/C3-RapidReset.png)
 
+# Créditos extras
+
+<a href="https://www.flaticon.com/free-icons/cyber-attack" title="cyber attack icons">Cyber attack icons created by Freepik - Flaticon</a>
