@@ -239,6 +239,18 @@ Esse cenário, descrito em `Cenario2.yaml` pretende a escalabilidade do testbed.
 
 Siga os mesmos processos detalhados neste passo do cenário anterior, isto é, navegar pelo portal e criar uma definição de experimento, desta vez utilizando o Cenario2.yaml como base.
 
+Durante o experimento, isto é, após o final do warmup, analise o conteúdo dos arquivos listados na seção Dados Coletados por Entidade. Use comandos como `tail -f /<caminho>` para acompanhar o conteúdo dos arquivos em tempo real ou monitore os processos ativos de uma entidade, como nós SSH vulneráveis, utilizando `watch ps aux`. Alguns outros comandos de interesse são listados abaixo podem ser executados em um cliente por exemplo:
+
+
+```bash
+cat /MENTORED_READY # timestmap inicio do experimento
+cat /etc/hosts # registros DNS fixos realizados automaticamente
+ping -c3 server-http # teste de conectividade ao servidor via ICMP
+curl -vvv http://server-http # tentativa de requisição da página web na raiz
+curl -v http://server-http/home?min_words=1&max_words=7478 # solicitação de uma página com conteúdo de tamanho variável
+```
+
+
 > [!IMPORTANT]
 > Este cenário conta com 326 nós ao todo, a o processo de warmup (inicialização) do cenário demora cerca de 15-30min, seguido da execução do experimento, novamente de 300 segundos, seguido do processo de salvamento dos dados, o qual também pode demorar 15-30min. Otimizações a ambos os processos de warmup e salvamento estão sendo discutidas. Experimente a página "Informações do Cluster" no painel esquerdo durante esse periodo!
 
@@ -341,6 +353,28 @@ Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um 
 #### Executando o cenário
 
 Siga os mesmos processos detalhados neste passo do cenário 1, isto é, navegar pelo portal e criar uma definição de experimento, desta vez utilizando o Cenario3.yaml como base.
+
+Durante o experimento, isto é, após o final do warmup, analise o conteúdo dos arquivos listados na seção Dados Coletados por Entidade. Use comandos como `tail -f /<caminho>` para acompanhar o conteúdo dos arquivos em tempo real ou monitore os processos ativos de uma entidade, como nós SSH vulneráveis, utilizando `watch ps aux`. Além disso, procure a ocorrência das requisições dos nós realizando o ataque nos registros de acesso do proxy reverso nginx, como exposto abaixo:
+
+```
+10.194.6.11 - - [09/Dec/2024:21:13:43 +0000] "GET / HTTP/2.0" 499 0 "-" "-"
+10.194.8.11 - - [09/Dec/2024:21:13:43 +0000] "GET / HTTP/2.0" 499 0 "-" "-"
+10.194.12.2 - - [09/Dec/2024:21:13:43 +0000] "GET / HTTP/2.0" 499 0 "-" "-"
+10.194.13.2 - - [09/Dec/2024:21:13:43 +0000] "GET / HTTP/2.0" 499 0 "-" "-"
+10.194.6.11 - - [09/Dec/2024:21:13:43 +0000] "GET / HTTP/2.0" 499 0 "-" "-"
+10.194.8.11 - - [09/Dec/2024:21:13:43 +0000] "GET / HTTP/2.0" 499 0 "-" "-"
+10.194.12.2 - - [09/Dec/2024:21:13:43 +0000] "GET / HTTP/2.0" 499 0 "-" "-"
+```
+
+Alguns outros comandos de interesse são listados abaixo podem ser executados em um cliente por exemplo:
+
+```bash
+cat /MENTORED_READY # timestmap inicio do experimento
+cat /etc/hosts # registros DNS fixos realizados automaticamente
+ping -c3 server-http # teste de conectividade ao servidor via ICMP
+curl -k -vvv https://server-http # tentativa de requisição da página web na raiz
+curl -k -v https://server-http/home?min_words=1&max_words=7478 # solicitação de uma página com conteúdo de tamanho variável
+```
 
 #### Análise dos resultados
 
