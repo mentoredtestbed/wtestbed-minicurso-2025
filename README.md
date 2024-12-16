@@ -280,8 +280,7 @@ Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um 
 
 4) Nós vulneráveis: node actors (entidades) que simulam um dispositivo IoT qualquer com a porta 22/TCP (SSH) exposta para a internet, com uma senha simples
 
-
-![alt text](Diagramas-Cenários-Distribuição-C3(2).png)
+![alt text](img/Diagramas-Cenários-Distribuição-C3.png)
 
 
 #### Fluxo / Timeline
