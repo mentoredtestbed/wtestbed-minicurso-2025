@@ -281,6 +281,9 @@ Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um 
 4) Nós vulneráveis: node actors (entidades) que simulam um dispositivo IoT qualquer com a porta 22/TCP (SSH) exposta para a internet, com uma senha simples
 
 
+![alt text](Diagramas-Cenários-Distribuição-C3(2).png)
+
+
 #### Fluxo / Timeline
 
 * Duração 300 segundos
@@ -289,6 +292,8 @@ Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um 
 * [60-240s] Atacante inicia tentativas de bruteforce SSH contra os nós vulneráveis. Tais nós quando comprometidos iniciam o ataque previamente descrito por 180 segundos.
 
 * [240-300s] Apenas clientes legítimos e o servidor Web estão ativos
+
+![alt text](img/Diagramas-Cenários-Timeline-C3.png)
 
 #### Dados coletados por entidade
 
