@@ -40,25 +40,27 @@ Esse cenário, descrito em `Cenario1.yaml` pretende demonstrar o funcionamento b
 
 * Todos:
   
-  * Logs do script de inicialização
+  * Logs do script de inicialização (arquivo `experiment_logs_<xyz>.tar`)
   
-  * IPs de cada nó
+  * IPs de cada nó (`MENTORED_IP_LIST.yaml`)
   
-  * Tempo de inicialização do experimento
+  * Tempo de inicialização do experimento (`MENTORED_READY.txt`)
 
 * Servidor Web:
   
-  * Captura de tráfego de rede
+  * Captura de tráfego de rede (`/app/results/packets.pcapng`, arquivo assim como arquivo `hosts` na mesma pasta)
   
-  * Logs do Apache 2
+  * Logs do Apache 2 (`/app/results/access.log` e `error.log` na mesma pasta)
 
 * Cliente:
+
+  * Registro (timestamp) do início das requisições(`/app/results/MENTORED_REGISTRY.yaml`)
   
-  * CSV contando a latência de cada requisição ou um erro demarcando falha na conexão
+  * CSV contando a latência de cada requisição ou um erro demarcando falha na conexão (`/app/results/client_delay.csv`)
 
 * Atacante:
   
-  * Registro (timestamp) do início e fim do ataque
+  * Registro (timestamp) do início e fim do ataque (`/app/results/MENTORED_REGISTRY.yaml`)
 
 #### Resultados esperados
 
