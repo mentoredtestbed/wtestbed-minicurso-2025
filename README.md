@@ -12,7 +12,7 @@
 
 3. Examinar dados coletados para avaliar a efetividade dos ataques performados
 
-### Cenário 1) Ataque Slowloris / Hello World
+### Cenário 1) Ataque Slowloris / Hello World (Estimativa de 10min)
 
 Esse cenário, descrito em `Cenario1.yaml` pretende demonstrar o funcionamento básico do testbed, sendo de rápida execução e fácil análise.
 #### Entidades
@@ -165,7 +165,7 @@ Notando que a execução iniciada no segundo 235 foi respondida 4 segundos após
 
 Por fim, experimente repetir execuções do experimento para verificar sua reprodutibilidade, ou modifique parâmetros do experimento como o número de réplicas de entidades, seu posicionamento, o comando de ataque executado (recomenda-se a leitura das imagens Docker em `docker-images`), etc.
 
-### Cenário 2) Ataque DDoS Layer3 volumétrico
+### Cenário 2) Ataque DDoS Layer3 volumétrico (Estimativa de 40min)
 
 Esse cenário, descrito em `Cenario2.yaml` pretende a escalabilidade do testbed. Sua execução consistem em 4 tipos de entidades, dentre elas inúmeras replicas de clientes HTTP, simulando um cenário de maior escala.
 
@@ -258,7 +258,7 @@ Em seguida podemos gerar um gráfico de vazão da interface do servidor Web dest
 
 Como demonstrado por este esperimento, um grande número de nós (326) pode ser representado no MENTORED _testbed_, mesmo considerando que os dispositivos em uso são de desempenho modesto (em maioria, Raspberry Pis 4 de 4G), assim como a utilização de um único access point Wi-Fi.
 
-### Cenário 3 - HTTP/2 RAPID RESET
+### Cenário 3 - HTTP/2 RAPID RESET (Estimativa de 10min)
 
 Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um ataque recente no MENTORED _testbed_. Em específico, o HTTP/2 RAPID RESET, o qual é melhor explicado [neste blog post da Cloudflare](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/).
 
