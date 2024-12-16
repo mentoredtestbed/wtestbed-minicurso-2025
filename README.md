@@ -225,7 +225,7 @@ Esse cenário, descrito em `Cenario2.yaml` pretende a escalabilidade do testbed.
 
   * Registros do inicio e fim do ataque hping3 (`/app/results/MENTORED_REGISTRY.yaml`)
 
-  * Logs de acesso do servidor SSH (`/app/results/sshd.log`))
+  * Logs de acesso do servidor SSH (`/app/results/sshd.log`)
 
 #### Resultados esperados
 
@@ -304,35 +304,39 @@ Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um 
 
 * Todos:
   
-  * Logs do script de inicialização
+  * Logs do script de inicialização (arquivo `experiment_logs_<xyz>.tar`)
   
-  * IPs de cada nó
+  * IPs de cada nó (`MENTORED_IP_LIST.yaml`)
   
-  * Tempo de inicialização do experimento
+  * Tempo de inicialização do experimento (`MENTORED_READY.txt`)
 
 * Servidor Web Apache:
   
-  * Captura de tráfego de rede
+  * Captura de tráfego de rede (`/app/results/packets.pcapng`, arquivo assim como arquivo `hosts` na mesma pasta)
   
-  * Logs do Apache 2
+  * Logs do Apache 2 (`/app/results/access.log` e `error.log` na mesma pasta)
 
 * Proxy Reverso Nginx:
 
-  * Logs de acesso
+  * Logs de acesso (`/var/log/nginx/access.log` e `error.log` na mesma pasta)
   
-  * Captura de tráfego de rede
+  * Captura de tráfego de rede (`/app/results/packets.pcapng`)
 
 * Cliente:
+
+  * Registro (timestamp) do início das requisições(`/app/results/MENTORED_REGISTRY.yaml`)
   
-  * CSV contando a latência de cada requisição ou um erro demarcando falha na conexão
+  * CSV contando a latência de cada requisição ou um erro demarcando falha na conexão (`/app/results/client_delay.csv`)
 
 * Atacante:
   
-  * Registro (timestamp) do início e fim do ataque SSH
+  * Registro (timestamp) do início e fim do ataque SSH (`/app/results/MENTORED_REGISTRY.yaml`)
 
 * Nó IoT Vulnerável:
-  * Registros do inicio e fim do ataque rapidreset
-  * Logs de acesso do servidor SSH
+
+  * Registros do inicio e fim do ataque rapidreset (`/app/results/MENTORED_REGISTRY.yaml`)
+
+  * Logs de acesso do servidor SSH (`/app/results/sshd.log`)
 
 #### Executando o cenário
 
