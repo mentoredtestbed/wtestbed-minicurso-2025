@@ -277,6 +277,9 @@ Em seguida podemos gerar um gráfico de vazão da interface do servidor Web dest
 
 ![Vazão e pacotes por segundo no Cenário 2](img/C2-Vazão-e-pacotes.png)
 
+Caso deseje, examine o arquivo de captura de pacotes manualmente no Wireshark, recomenda-se utilizar do arquivo `hosts`, o qual contem o mapeamento DNS. Para isso, copie tal arquivo (contido na mesma pasta do `packets.pcapng`) para seu diretório de configuração do Wireshark (`~/.config/wireshark/` no Linux e `%appdata%\Wireshark\` no Windows). Em seguida abra a captura de pacotes e ative a resolução de DNS em View -> Name resolution -> Resolve Network Addresses. Ao realizar tal processo a captura de pacotes será mais legivel ao incluir o nome do node actor, como exibido abaixo:
+
+![alt text](img/Wireshark-DNS.png)
 
 
 Como demonstrado por este esperimento, um grande número de nós (326) pode ser representado no MENTORED _testbed_, mesmo considerando que os dispositivos em uso são de desempenho modesto (em maioria, Raspberry Pis 4 de 4G), assim como a utilização de um único access point Wi-Fi.
