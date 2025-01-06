@@ -171,7 +171,7 @@ def cross_reference_logs(publisher_csv, subscriber_csvs, attack_start, post_atta
     }
 
     delay_95_percentile = {
-        group: merged_df["delay"].quantile(0.95)
+        group: (pd.Series(delays).quantile(0.95) if delays else None)  # Default to None if no delays
         for group, delays in total_delay_stats.items()
     }
 
@@ -186,7 +186,6 @@ def cross_reference_logs(publisher_csv, subscriber_csvs, attack_start, post_atta
         "avg_delay (in seconds)": [avg_delay_stats["pre_attack"], avg_delay_stats["during_attack"], avg_delay_stats["post_attack"]],
         "95_percentile_delay (in seconds)": [delay_95_percentile["pre_attack"], delay_95_percentile["during_attack"], delay_95_percentile["post_attack"]]
     })
-
 
     return stats_df
 
@@ -230,7 +229,7 @@ if __name__ == "__main__":
         extract_experiment_data(args.experiment_file, temp_dir)
         # Fill in the other timestamps too
         ATTACK_START = MENTORED_READY + pd.Timedelta(seconds=int(args.attack_start))
-        ATTACK_END = MENTORED_READY + pd.Timedelta(seconds=int(args.attack_start) + int(args.post_attack))
+        ATTACK_END = MENTORED_READY + pd.Timedelta(seconds=int(args.post_attack))
         nodes = []
         if args.node:
             nodes = [args.node]
