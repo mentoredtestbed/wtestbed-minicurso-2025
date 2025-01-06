@@ -34,3 +34,19 @@ Experiment analyzer finished
 ```
 
 Neste caso, a latência média no periodo pré-ataque foi de 0.043 segundos (43ms) e existiram 29 erros de conectividade. Já durante o ataque há uma latência média de aproximadamente 700ms e foram registrados 1991 erros de conectividade.
+
+
+# (BONUS) MQTT
+
+Para analisar tráfego MQTT no testbed você pode utilizar o comando abaixo:
+
+```
+MY_ATTACK_START=60
+MY_ATTACK_END=240
+MY_EXP_FILE=experiment_847.tar.gz
+cp ~/Downloads/$MY_EXP_FILE .
+sudo docker run --rm -it \
+    -v .:/app ghcr.io/khalilsantana/dataset-mentored-iot-2024 \
+    python3 /app/scripts/clients-analysis/mqtt.py \
+../../$MY_EXP_FILE --attack-start $MY_ATTACK_START --post-attack $MY_ATTACK_END -n 1
+```
