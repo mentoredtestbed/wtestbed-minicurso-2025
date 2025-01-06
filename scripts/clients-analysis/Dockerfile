@@ -6,6 +6,7 @@ RUN apt update && \
                    python3-numpy \
                    python3-tqdm \
                    python3-pandas \
+                   python3-yaml \
                    g++ \
                    libpcap-dev \
                    && apt clean && rm -rf /var/lib/apt/lists/*
