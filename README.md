@@ -32,7 +32,7 @@ Esse cenário, descrito em `Cenario1.yaml` pretende demonstrar o funcionamento b
 
 * [60-240s] Atacante performa um ataque durando 180s contra o servidor
 
-* [240-300s] Apenas clientes legítimos e o servidor Web estão ativos
+* [241-300s] Apenas clientes legítimos e o servidor Web estão ativos
 
 ![alt text](img/Diagramas-Cenários-Timeline-C1.png)
 
@@ -169,7 +169,7 @@ Por fim, experimente repetir execuções do experimento para verificar sua repro
 
 ### Cenário 2) Ataque DDoS Layer3 volumétrico (Estimativa de 40min)
 
-Esse cenário, descrito em `Cenario2.yaml` pretende a escalabilidade do testbed. Sua execução consistem em 4 tipos de entidades, dentre elas inúmeras replicas de clientes HTTP, simulando um cenário de maior escala.
+Esse cenário, descrito em `Cenario2.yaml` pretende a escalabilidade do testbed. Sua execução consistem em 4 tipos de entidades, dentre elas inúmeras réplicas de clientes HTTP, simulando um cenário de maior escala.
 
 #### Entidades
 
@@ -191,7 +191,7 @@ Esse cenário, descrito em `Cenario2.yaml` pretende a escalabilidade do testbed.
 
 * [60-240s] Atacante inicia tentativas de bruteforce SSH contra os nós vulneráveis. Tais nós quando comprometidos iniciam o ataque previamente descrito por 180 segundos.
 
-* [240-300s] Apenas clientes legítimos e o servidor Web estão ativos
+* [241-300s] Apenas clientes legítimos e o servidor Web estão ativos
 
 ![alt text](img/Diagramas-Cenários-Timeline-C2.png)
 
@@ -311,7 +311,7 @@ Esse cenário (`Cenario3.yaml`) tem como objetivo demonstrar a execução de um 
 
 * [60-240s] Atacante inicia tentativas de bruteforce SSH contra os nós vulneráveis. Tais nós quando comprometidos iniciam o ataque previamente descrito por 180 segundos.
 
-* [240-300s] Apenas clientes legítimos e o servidor Web estão ativos
+* [241-300s] Apenas clientes legítimos e o servidor Web estão ativos
 
 ![alt text](img/Diagramas-Cenários-Timeline-C3.png)
 
