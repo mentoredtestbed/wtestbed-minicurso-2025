@@ -254,6 +254,7 @@ curl -v http://server-http/home?min_words=1&max_words=7478 # solicitação de um
 > [!IMPORTANT]
 > Este cenário conta com 326 nós ao todo, a o processo de warmup (inicialização) do cenário demora cerca de 15-30min, seguido da execução do experimento, novamente de 300 segundos, seguido do processo de salvamento dos dados, o qual também pode demorar 15-30min. Otimizações a ambos os processos de warmup e salvamento estão sendo discutidas. Experimente a página "Informações do Cluster" no painel esquerdo durante esse periodo!
 
+
 > ![alt text](img/Criação-de-Experimento-09.png)
 
 #### Análise dos resultados
@@ -261,7 +262,9 @@ curl -v http://server-http/home?min_words=1&max_words=7478 # solicitação de um
 
 Primeiramente é possivel observar que o tamanho dos registros do experimento são significativamente maiores, contando com  ~150 MB de dados comprimidos, dentre eles um arquivo de captura de tráfego de rede (`.PCAPNG`) de 2.5GB. Tal volume de dados é esperado tendo em vista a natureza volumétrica deste ataque.
 
-> ![IMPORTANT] Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04.
+> ![IMPORTANT]
+> Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04.
+
 
 1) Baixe o arquivo `.tar.gz` e copie o mesmo para esta pasta (adaptando o comando abaixo)
 
@@ -274,7 +277,9 @@ cp ~/Downloads/$MY_EXP_FILE .
 
 2) Execute o script de análise
 
-> [!NOTE] Abaixo um exemplo utilizando a imagem Docker pré-construída
+> [!NOTE]
+> Abaixo um exemplo utilizando a imagem Docker pré-construída
+
 
 ```bash
 sudo docker run --rm -it \
@@ -297,7 +302,9 @@ Neste caso, a latência média no periodo pré-ataque foi de 0.043 segundos (43m
 
 Em seguida podemos gerar um gráfico de vazão da interface do servidor Web deste cenário utilizando as ferramentas de análise de dados do servidor. 
 
-> ![IMPORTANT] Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04.
+> ![IMPORTANT]
+> Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04.
+
 
 1) Baixe o arquivo `.tar.gz` e copie o mesmo para esta pasta (adapando o comando baixo)
 
@@ -310,7 +317,9 @@ cp ~/Downloads/$MY_EXP_FILE .
 
 2) Execute o script de análise de dados de servidor
 
-> [!NOTE] Abaixo um exemplo utilizando a imagem Docker pré-construída
+> [!NOTE] 
+> Abaixo um exemplo utilizando a imagem Docker pré-construída
+
 
 ```bash
 sudo docker run --rm -it \
