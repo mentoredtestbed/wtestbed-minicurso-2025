@@ -269,6 +269,9 @@ Primeiramente é possivel observar que o tamanho dos registros do experimento s�
 1) Baixe o arquivo `.tar.gz` e copie o mesmo para esta pasta (adaptando o comando abaixo)
 
 ```bash
+git clone git@github.com:KhalilSantana/dataset-mentored-iot-2024.git
+cd dataset-mentored-iot-2024.git
+git pull
 MY_ATTACK_START=60
 MY_ATTACK_END=240
 MY_EXP_FILE=experiment_XXXX.tar.gz
@@ -306,13 +309,12 @@ Em seguida podemos gerar um gráfico de vazão da interface do servidor Web dest
 > Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04. Caso esteja utilizando o Windows 10/11, recomenda-se utilizar o WSL2 com o Ubuntu 24.04.
 
 
-1) Baixe o arquivo `.tar.gz` e copie o mesmo para esta pasta (adapando o comando baixo)
+1) Dentro da pasta do repostório do roteiro, certifique-se que o arquivo do experimento está presente e estas variáveis de ambiente estão configuradas
 
 ```bash
 MY_EXP_DURATION=300
 MY_EXP_FILE=experiment_847.tar.gz
 cp ~/Downloads/$MY_EXP_FILE .
-
 ```
 
 2) Execute o script de análise de dados de servidor
