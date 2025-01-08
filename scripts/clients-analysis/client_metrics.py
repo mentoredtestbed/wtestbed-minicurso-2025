@@ -22,8 +22,16 @@ def read_csv_files(directory):
             file_path = os.path.join(root, file)
             with open(file_path, 'r') as f:
                 lines = f.readlines()[1:]  # Ignore the first line (headers)
-                csv_data = np.genfromtxt(lines, delimiter=',', dtype=float)
-                data.append(csv_data)
+                cleaned_lines = []
+                for line in lines:
+                    columns = line.split(',')
+                    if len(columns) >= 2:  # Ensure at least two columns exist
+                        cleaned_lines.append(','.join(columns[:2]))  # Use only the first two columns
+                try:
+                    csv_data = np.genfromtxt(cleaned_lines, delimiter=',', dtype=float)
+                    data.append(csv_data)
+                except ValueError as e:
+                    logger.error(f"Error parsing {file_path}: {e}")
     return data
 
 def extract_experiment_data(expfile, temp_dir):    
