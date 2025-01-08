@@ -313,7 +313,7 @@ Em seguida podemos gerar um gráfico de vazão da interface do servidor Web dest
 
 ```bash
 MY_EXP_DURATION=300
-MY_EXP_FILE=experiment_847.tar.gz
+MY_EXP_FILE=experiment_XXXX.tar.gz
 cp ~/Downloads/$MY_EXP_FILE .
 ```
 
@@ -437,13 +437,63 @@ curl -k -v https://server-http/home?min_words=1&max_words=7478 # solicitação d
 
 #### Análise dos resultados
 
-Similarmente ao cenário anterior, utilize as ferramentas de análise dados do cliente e servidor para extrair conhecimento sobre a efetividade deste ataque. Abaixo os resultados do experimento:
+Similarmente ao cenário anterior, utilize as ferramentas de análise dados do cliente e servidor para extrair conhecimento sobre a efetividade deste ataque.
+
+1) Baixe o arquivo `.tar.gz` e copie o mesmo para esta pasta do roteiro clonada anteriormente (adaptando o comando abaixo)
+
+```bash
+MY_ATTACK_START=60
+MY_ATTACK_END=240
+MY_EXP_FILE=experiment_XXXX.tar.gz
+cp ~/Downloads/$MY_EXP_FILE .
+```
+
+2) Execute o script de análise
+
+> [!NOTE]
+> Abaixo um exemplo utilizando a imagem Docker pré-construída
+
+
+```bash
+sudo docker run --rm -it \
+    -v .:/app ghcr.io/khalilsantana/dataset-mentored-iot-2024 \
+    python3 /app/scripts/clients-analysis/client_metrics.py \
+    ../../$MY_EXP_FILE -a $MY_ATTACK_START -p $MY_ATTACK_END
+```
+
+3) Observe os resultados, a exemplo abaixo:
 
 ```
 INFO - Average time for client response (Before 60 seconds)    : 0.062 - 0 errors
 INFO - Average time for client response (60 - 240 seconds)      : 0.127 - 5 errors
 INFO - Average time for client response (After 240 seconds)     : 0.094 - 1 errors
 ```
+
+Isto é, houveram 5 erros de requisição durante o ataque, com a latencia média aproximadamente o dobro periodo pré-ataque (127ms vs 62ms). Desta maneira comprovamos que o ataque HTTP/2 RAPID RESET foi efeitivo neste cenário! Contudo tal ataque tem uma efetividade variada, multiplas execuções podem resultar em resultados diferentes.
+
+**Análise de dados do servidor**
+
+1) Dentro da pasta do repostório do roteiro, certifique-se que o arquivo do experimento está presente e estas variáveis de ambiente estão configuradas
+
+```bash
+MY_EXP_DURATION=300
+MY_EXP_FILE=experiment_XXXX.tar.gz
+cp ~/Downloads/$MY_EXP_FILE .
+```
+
+2) Execute o script de análise de dados de servidor
+
+> [!NOTE] 
+> Abaixo um exemplo utilizando a imagem Docker pré-construída
+
+
+```bash
+sudo docker run --rm -it \
+    -v .:/app ghcr.io/khalilsantana/dataset-mentored-iot-2024 \
+    /app/scripts/server-analysis/experiment_analyzer.sh ../../$MY_EXP_FILE $MY_EXP_DURATION
+```
+
+3) Observe os resultados, em `scripts/server-analysis/output_${TIMESTAMP}.png`
 
 ![alt text](img/C3-RapidReset.png)
 
