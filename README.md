@@ -263,7 +263,7 @@ curl -v http://server-http/home?min_words=1&max_words=7478 # solicitação de um
 Primeiramente é possivel observar que o tamanho dos registros do experimento são significativamente maiores, contando com  ~150 MB de dados comprimidos, dentre eles um arquivo de captura de tráfego de rede (`.PCAPNG`) de 2.5GB. Tal volume de dados é esperado tendo em vista a natureza volumétrica deste ataque.
 
 > [!IMPORTANT]
-> Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04.
+> Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04. Caso esteja utilizando o Windows 10/11, recomenda-se utilizar o WSL2 com o Ubuntu 24.04.
 
 
 1) Baixe o arquivo `.tar.gz` e copie o mesmo para esta pasta (adaptando o comando abaixo)
@@ -303,7 +303,7 @@ Neste caso, a latência média no periodo pré-ataque foi de 0.043 segundos (43m
 Em seguida podemos gerar um gráfico de vazão da interface do servidor Web deste cenário utilizando as ferramentas de análise de dados do servidor. 
 
 > [!IMPORTANT]
-> Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04.
+> Os comandos abaixo presumem um ambiente Linux com Python3, para essa finalidade uma imagem de container para as ferramentas de análise é provida no passo 3. Usuário avançados podem também optar por instalar as dependencias Python3 diretamente num ambiente Linux como Ubuntu 24.04. Caso esteja utilizando o Windows 10/11, recomenda-se utilizar o WSL2 com o Ubuntu 24.04.
 
 
 1) Baixe o arquivo `.tar.gz` e copie o mesmo para esta pasta (adapando o comando baixo)
