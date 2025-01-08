@@ -163,7 +163,7 @@ Como o cliente está programado para realizar uma requisição a cada segundo, e
 |237.42081928253174|0.009|
 
 
-Notando que a execução iniciada no segundo 235 foi respondida 4 segundos após, ou seja, aproximadamente 240s a partir do início do experimento, coincidindo com o período onde o ataque é finalizado. Também é possível analisar os registros de cada cliente utilizando os scripts em `scripts/client-analysis` dentro deste repositório. Além disso, experimente analisar estes e co-relacionar os mesmos, como observar o tráfego de um node actor até o servidor, o início das requisições de cada nó, etc. 
+Notando que a execução iniciada no segundo 235 foi respondida 4 segundos após, ou seja, aproximadamente 240s a partir do início do experimento, coincidindo com o período onde o ataque é finalizado. Também é possível analisar os registros de cada cliente utilizando os scripts em `scripts/client-analysis` dentro deste repositório. Além disso, experimente analisar estes e co-relacionar os mesmos, como observar o tráfego de um node actor até o servidor, o início das requisições de cada nó, etc. É importante notar que multiplas execuções podem possuir uma efetividade de negação de serviço variada, apesar disso é possivel confirmar que o ataque inicia no momento desejado por meio da análise dos registros e da captura de tráfego de rede no servidor web. Por exemplo, algumas execuções resultam em negação de serviço por volta dos 110 segundos.
 
 Por fim, experimente repetir execuções do experimento para verificar sua reprodutibilidade, ou modifique parâmetros do experimento como o número de réplicas de entidades, seu posicionamento, o comando de ataque executado (recomenda-se a leitura das imagens Docker em `docker-images`), etc.
 
