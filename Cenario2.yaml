@@ -29,11 +29,11 @@ Experiment:
               value: "true"
           resources:
             requests:
-              memory: "1G"
-              cpu: "1"
+              memory: "1000M"
+              cpu: "1000m"
             limits:
-              memory: "2G"
-              cpu: "2"
+              memory: "1000M"
+              cpu: "1000m"
       region: "whx-mg"
       cluster: "x86"
 
@@ -347,11 +347,11 @@ Experiment:
             privileged: true
           resources:
             requests:
-              memory: "32M"
-              cpu: "100m"
+              memory: "128M"
+              cpu: "500m"
             limits:
-              memory: "2500M"
-              cpu: "3000m"
+              memory: "128M"
+              cpu: "500m"
       region: "rpi-9-ufmg"
       cluster: "iot"
 
@@ -377,11 +377,11 @@ Experiment:
             privileged: true
           resources:
             requests:
-              memory: "32M"
-              cpu: "100m"
+              memory: "128M"
+              cpu: "500m"
             limits:
-              memory: "2500M"
-              cpu: "3000m"
+              memory: "128M"
+              cpu: "500m"
       region: "rpi-0-ufmg"
       cluster: "iot"
 
@@ -407,11 +407,11 @@ Experiment:
             privileged: true
           resources:
             requests:
-              memory: "32M"
-              cpu: "100m"
+              memory: "128M"
+              cpu: "500m"
             limits:
-              memory: "2500M"
-              cpu: "3000m"
+              memory: "128M"
+              cpu: "500m"
       region: "rpi-6-ufmg"
       cluster: "iot"
 
@@ -437,11 +437,11 @@ Experiment:
             privileged: true
           resources:
             requests:
-              memory: "32M"
-              cpu: "100m"
+              memory: "128M"
+              cpu: "500m"
             limits:
-              memory: "2500M"
-              cpu: "3000m"
+              memory: "128M"
+              cpu: "500m"
       region: "rpi-8-ufmg"
       cluster: "iot"
 
