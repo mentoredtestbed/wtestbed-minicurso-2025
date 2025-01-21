@@ -270,7 +270,7 @@ Primeiramente √© possivel observar que o tamanho dos registros do experimento s√
 
 ```bash
 git clone git@github.com:KhalilSantana/dataset-mentored-iot-2024.git
-cd dataset-mentored-iot-2024.git
+cd dataset-mentored-iot-2024
 git pull
 MY_ATTACK_START=60
 MY_ATTACK_END=240
