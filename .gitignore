@@ -1,2 +1,3 @@
 *.tar.gz
 .old
+./scripts/*/__pycache__*
