@@ -33,10 +33,7 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
 
     # Plot x axis as time
     # "Recover" the initial part not captured in the pcap file
-    # data_x = throughput.index/1000000000
     data_x = throughput.index
-    print(max(throughput.index))
-    print(expected_time)
     if max(data_x) < expected_time:
         data_x = data_x + (expected_time - max(data_x))
 
@@ -89,7 +86,6 @@ def filter_to_experiment_duration(data, unix_timestamp, duration):
     print(f"Start capture data: {data_start}")
     filtered_data = data[(data['Timestamp'] >= start_time) & (data['Timestamp'] <= end_time)]
     print(f"Start time: {start_time}")
-    print(filtered_data)
     return filtered_data
 
 def main():
