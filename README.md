@@ -521,6 +521,51 @@ python3 scripts/ml-analysis/ids-analysis.py --files experiment_1097.tar.gz exper
 Esse comando irá inserir utilizar cada base de dados para criar um problema de Intrusão de Detecção, utilizando a biblioteca EvalML para gerar os modelos de Machine Learning. Para cada base de dados, diferentes valores de f1-score, acurácia, precisão e recall são gerados considerando diferentes proporções de dados de treinamento, o que é representado em um gráfico onde o eixo x representa a proporção de dados de treinamento e o eixo y representa a métrica utilizada. Além desse gráfico, um arquivo CSV é gerado contendo os resultados de cada execução, a imagem que representa a soma das matrizes de confusão e uma representação bidimensional dos dados de cada base usando o algoritmo t-SNE.
 
 
+# Métricas de Machine Learning (IDS)
+
+A partir dos dados coletados destes experimentos, foram elaborados modelos de inteligência artificial para detectar o tráfego malicioso e legítmo. Tais modelos de inteligência artificial são mais bem detalhados no artigo pertinente a este _dataset_. Abaixo são descritas as principais métricas como F1-score, Precision e Recall dos modelos de Machine Learning desenvolvidos utilizando a metodologia estabelecida no artigo.
+
+
+## F1 Score com desvio padrão
+![alt text](img/F1-Score_STD.png)
+
+## AUC com desvio padrão
+
+![alt text](img/AUC_STD.png)
+
+## Precisão com desvio padrão
+![alt text](img/Precision_STD.png)
+
+## Recall com desvio padrão
+![alt text](img/Recall_STD.png)
+
+
+## Dados brutos/datapoints das métricas de treinamento
+
+Veja os arquivos `.csv` na pasta "ML" do dataset. Abaixo um sumário dos dados (arredondados) dos modelos treinados em cada experimento:
+
+|   Train data ratio |   AUC |   STD AUC |   F1-Score |   STD F1-Score |   Precision |   STD Precision |   Recall |   STD Recall | Source           |
+|-------------------:|------:|----------:|-----------:|---------------:|------------:|----------------:|---------:|-------------:|:-----------------|
+|              0.004 | 0.627 |     0.118 |      0.543 |          0.182 |       0.655 |           0.234 |    0.627 |        0.118 | C1-Slowloris.csv |
+|              0.008 | 0.735 |     0.113 |      0.7   |          0.164 |       0.762 |           0.174 |    0.735 |        0.113 | C1-Slowloris.csv |
+|              0.016 | 0.846 |     0.046 |      0.843 |          0.05  |       0.871 |           0.033 |    0.846 |        0.046 | C1-Slowloris.csv |
+|              0.032 | 0.919 |     0.041 |      0.918 |          0.042 |       0.924 |           0.033 |    0.919 |        0.041 | C1-Slowloris.csv |
+|              0.064 | 0.951 |     0.033 |      0.951 |          0.033 |       0.954 |           0.029 |    0.951 |        0.033 | C1-Slowloris.csv |
+|              0.128 | 0.972 |     0.025 |      0.972 |          0.025 |       0.974 |           0.022 |    0.972 |        0.025 | C1-Slowloris.csv |
+|              0.256 | 0.991 |     0.004 |      0.991 |          0.004 |       0.991 |           0.004 |    0.991 |        0.004 | C1-Slowloris.csv |
+|              0.512 | 0.996 |     0.001 |      0.996 |          0.001 |       0.996 |           0.001 |    0.996 |        0.001 | C1-Slowloris.csv |
+
+|   Train data ratio |   AUC |   STD AUC |   F1-Score |   STD F1-Score |   Precision |   STD Precision |   Recall |   STD Recall | Source        |
+|-------------------:|------:|----------:|-----------:|---------------:|------------:|----------------:|---------:|-------------:|:--------------|
+|              0.004 | 0.858 |     0.139 |      0.838 |          0.189 |       0.844 |           0.217 |    0.858 |        0.139 | C2-Hping3.csv |
+|              0.008 | 0.943 |     0.025 |      0.943 |          0.025 |       0.951 |           0.018 |    0.943 |        0.025 | C2-Hping3.csv |
+|              0.016 | 0.964 |     0.028 |      0.964 |          0.028 |       0.967 |           0.023 |    0.964 |        0.028 | C2-Hping3.csv |
+|              0.032 | 0.975 |     0.02  |      0.975 |          0.02  |       0.977 |           0.019 |    0.975 |        0.02  | C2-Hping3.csv |
+|              0.064 | 0.985 |     0.011 |      0.985 |          0.012 |       0.985 |           0.011 |    0.985 |        0.011 | C2-Hping3.csv |
+|              0.128 | 0.994 |     0.006 |      0.994 |          0.006 |       0.995 |           0.005 |    0.994 |        0.006 | C2-Hping3.csv |
+|              0.256 | 0.996 |     0.003 |      0.996 |          0.003 |       0.996 |           0.003 |    0.996 |        0.003 | C2-Hping3.csv |
+|              0.512 | 0.999 |     0.001 |      0.999 |          0.001 |       0.999 |           0.001 |    0.999 |        0.001 | C2-Hping3.csv |
+
 # Créditos extras
 
 <a href="https://www.flaticon.com/free-icons/cyber-attack" title="cyber attack icons">Cyber attack icons created by Freepik - Flaticon</a>
