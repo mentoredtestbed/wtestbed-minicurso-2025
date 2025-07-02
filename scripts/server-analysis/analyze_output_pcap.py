@@ -32,10 +32,7 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
 
     # Plot x axis as time
     # "Recover" the initial part not captured in the pcap file
-    # data_x = throughput.index/1000000000
     data_x = throughput.index
-    print(max(throughput.index))
-    print(expected_time)
     if max(data_x) < expected_time:
         data_x = data_x + (expected_time - max(data_x))
 

@@ -343,8 +343,28 @@ Caso deseje, examine o arquivo de captura de pacotes manualmente no Wireshark, r
 
 Como demonstrado por este esperimento, um grande número de nós (326) pode ser representado no MENTORED _testbed_, mesmo considerando que os dispositivos em uso são de desempenho modesto (em maioria, Raspberry Pis 4 de 4G), assim como a utilização de um único access point Wi-Fi.
 
+#### Avaliando cenários com Sistemas de Detecção de Intrusão
+Considerando que dois datasets foram gerados, um para cada cenário, é possível avaliar a efetividade de sistemas de detecção de intrusão (IDS) em detectar os ataques realizados. Para isso, o MENTORED Testbed conta com um sistema de coleta de dados e análise e rotulação de tráfego de rede dentro de suas imagens base, o qual pode ser utilizado para gerar um arquivo de captura de tráfego de rede (`.pcapng`) para cada entidade e o arquivo MENTORED_REGISTRY.yaml, o qual contém o timestamp para cada atividade dos experimentos. 
 
-# Métricas de Machine Learning
+
+**Unindo os datasets**: Existe a possibilidade de unir os dois datasets gerados, isto é, o do cenário 1 e o do cenário 2. Para isso, utilize o script `merge_datasets.py` para unir os arquivos `.tar.gz` gerados. O comando abaixo exemplifica como realizar tal operação:
+
+```bash
+python3 scripts/ml-analysis/merge_datasets.py --files  experiment_XXXX.tar.gz experiment_YYYY.tar.gz
+```
+
+Esse comando irá gerar por padrão um arquivo chamado `MERGED-DS.tar.gz`, que contém os fluxos de rede de ambos os experimentos, assim como os rótulos para cada fluxo.
+
+Para gerar as análises que usam intrusão de detecção, utilize o script `ml_analysis.py` para gerar os arquivos de saída. O comando abaixo exemplifica como realizar tal operação:
+
+```bash
+python3 scripts/ml-analysis/ids-analysis.py --files experiment_1097.tar.gz experiment_1099.tar.gz MERGED-DS.tar.gz
+```
+
+Esse comando irá inserir utilizar cada base de dados para criar um problema de Intrusão de Detecção, utilizando a biblioteca EvalML para gerar os modelos de Machine Learning. Para cada base de dados, diferentes valores de f1-score, acurácia, precisão e recall são gerados considerando diferentes proporções de dados de treinamento, o que é representado em um gráfico onde o eixo x representa a proporção de dados de treinamento e o eixo y representa a métrica utilizada. Além desse gráfico, um arquivo CSV é gerado contendo os resultados de cada execução, a imagem que representa a soma das matrizes de confusão e uma representação bidimensional dos dados de cada base usando o algoritmo t-SNE.
+
+
+# Métricas de Machine Learning (IDS)
 
 A partir dos dados coletados destes experimentos, foram elaborados modelos de inteligência artificial para detectar o tráfego malicioso e legítmo. Tais modelos de inteligência artificial são mais bem detalhados no artigo pertinente a este _dataset_. Abaixo são descritas as principais métricas como F1-score, Precision e Recall dos modelos de Machine Learning desenvolvidos utilizando a metodologia estabelecida no artigo.
 

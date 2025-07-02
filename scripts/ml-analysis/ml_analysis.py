@@ -97,7 +97,6 @@ def preprocess_data(df,
             ratio_options = [max_samples_per_class/per for per in samples_per_class.values()
                                 if (1 - max_samples_per_class/per)*per > 0]
             
-            print(ratio_options)
             if len(ratio_options) == 0:
                 # If the ratio is too high, we will drop samples to ensure at least min_instances_per_class samples per class
                 msg = f"\nCannot find drop ratio to ensure a maximum of {max_samples_per_class} samples per class. Skipping samples drop."
@@ -226,30 +225,25 @@ def difficulty_analysis(df, dataset_path):
             
             X_train, _, y_train, _ = train_test_split(full_X_train, full_y_train, train_size=train_data_ratio, random_state=replication_id)
 
+            allowed_min_class=3
             min_class = min([len(y_train[y_train == label]) for label in np.unique(y_train)])
-            if len(set(y_train)) <= 1 or min_class < len(set(y_train)):
+            if len(set(y_train)) <= 1 or min_class < len(set(y_train)) or min_class < allowed_min_class:
                 continue
 
             # If any class have less than min_samples_per_class samples, use imblearn for oversampling
             if min([len(y_train[y_train == label]) for label in np.unique(y_train)]) < 100:
-                print(min_class)
                 smote = SMOTE(sampling_strategy="minority", random_state=replication_id,
-                              k_neighbors=min(min_class-1, 5))
+                              k_neighbors=min(allowed_min_class-1, 5))
                 
                 X_train, y_train = smote.fit_resample(X_train, y_train)
                 
-            # print(f"Train size: {len(X_train)}")
-            # print(f"Test size: {len(X_test)}")
-
             # Train a classifier
-            # clf = RandomForestClassifier(random_state=replication_id)
-            # clf = RandomForestClassifier(random_state=replication_id)
-            # clf.fit(X_train, y_train)
-            automl = AutoMLSearch(X_train=X_train, y_train=y_train, problem_type=problem_type, objective=objective, max_batches=1, optimize_thresholds=True, n_jobs=-1)
+            def log_error_callback(*args, **kwargs):
+                return
+            automl = AutoMLSearch(X_train=X_train, y_train=y_train, problem_type=problem_type, objective=objective, max_batches=1, optimize_thresholds=True, n_jobs=-1, verbose=False, error_callback=log_error_callback)
             # automl = AutoMLSearch(X_train=X_train, y_train=y_train, problem_type="binary", objective="f1", n_jobs=-1)
             automl.search()
             clf = automl.best_pipeline
-            # clf.fit(X_train, y_train)
             y_pred = clf.predict(X_test)
             f1score = f1_score(y_test, y_pred, average="macro")
 
@@ -267,9 +261,6 @@ def difficulty_analysis(df, dataset_path):
 
             auc = np.trapz(tpr, fpr)
 
-            # print(f"Train ratio: {train_data_ratio}, F1-score: {f1score}")
-            # print(f"Train ratio: {train_data_ratio}, AUC: {auc}")
-            # replication_data.append((train_data_ratio, f1score))
             replication_data.append([train_data_ratio, auc])
 
             if not i in replication_data_full_dict:
@@ -280,12 +271,6 @@ def difficulty_analysis(df, dataset_path):
         if len(replication_data) > 0:
             replication_data_full.append(replication_data)
     
-    # Average
-    # replication_data_full = np.array(replication_data_full)
-    # mean = np.mean(replication_data_full, axis=0)
-    # print(f"Mean AUC: {mean.tolist()}")
-    # print(f"STD AUC: {np.std(replication_data_full, axis=0).tolist()}")
-
     data_ratio_list = []
     auc_mean_list = []
     auc_std_list = []
@@ -319,18 +304,6 @@ def difficulty_analysis(df, dataset_path):
     recall_mean_list = np.array(recall_mean_list)
     recall_std_list = np.array(recall_std_list)
         
-    # print(mean)
-
-    
-    # Plot
-    # plt.figure(figsize=(10,10))
-    # plt.plot(mean[:,0], mean[:,1], label="AUC")
-    # plt.fill_between(mean[:,0], mean[:,1]-np.std(replication_data_full, axis=0)[:,1], mean[:,1]+np.std(replication_data_full, axis=0)[:,1], alpha=0.3)
-    # plt.xlabel("Train data ratio")
-    # plt.ylabel("AUC")
-    # plt.legend()
-    # plt.savefig(dataset_path.replace(".csv", "difficulty_analysis.png"))
-    
     plt.figure(figsize=(10,10))
     plt.plot(data_ratio_list, auc_mean_list, label="AUC")
     plt.fill_between(data_ratio_list, auc_mean_list-auc_std_list, auc_mean_list+auc_std_list, alpha=0.3)
@@ -340,8 +313,6 @@ def difficulty_analysis(df, dataset_path):
     plt.savefig(dataset_path.replace(".csv", "difficulty_analysis.png"))
 
     # Also save mean and std to a csv file
-    # mean_df = pd.DataFrame(mean, columns=["Train data ratio", "AUC", "STD"])
-    # mean = np.concatenate((mean, np.std(replication_data_full, axis=0)[:, [1]]), axis=1)
     mean = np.concatenate((data_ratio_list.reshape(-1,1), auc_mean_list.reshape(-1,1), auc_std_list.reshape(-1,1), f1_mean_list.reshape(-1,1), f1_std_list.reshape(-1,1), precision_mean_list.reshape(-1,1), precision_std_list.reshape(-1,1), recall_mean_list.reshape(-1,1), recall_std_list.reshape(-1,1)), axis=1)
     mean_df = pd.DataFrame(mean, columns=["Train data ratio", "AUC", "STD AUC", "F1-Score", "STD F1-Score", "Precision", "STD Precision", "Recall", "STD Recall"])
     mean_df.to_csv(dataset_path.replace(".csv", "difficulty_analysis.csv"), index=False)
@@ -356,8 +327,6 @@ def classification_analysis(df, dataset_path):
 
     # Shuffle df
     df = df.sample(frac=1, random_state=42)
-
-    
     
     scores = []
     cm_sum = None
@@ -369,7 +338,6 @@ def classification_analysis(df, dataset_path):
         # clf = RandomForestClassifier(random_state=rep_id)
         
         skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=rep_id)
-        # skf = StratifiedKFold(n_splits=10)
 
         for train_index, test_index in skf.split(X_features, X["Label"]):
         # for test_index, train_index in skf.split(X_features, X["Label"]):
@@ -444,7 +412,6 @@ def create_dataset_analysis(dataset_path, ignore_classes=[]):
     # Remove ignored classes
     if len(ignore_classes) > 0:
         df = df[~df["Label"].isin(ignore_classes)]
-    
 
     logs += tsne_analysis(df, dataset_path)
 
@@ -461,7 +428,7 @@ def main():
 
     parser.add_argument('-i', '--ignore', type=str, default="",
                         help='Comma separated list of classes to ignore')
-                        
+
     args = parser.parse_args()
 
     create_dataset_analysis(args.dataset, args.ignore.split(","))
