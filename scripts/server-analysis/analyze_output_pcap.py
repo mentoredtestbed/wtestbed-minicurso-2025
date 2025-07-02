@@ -54,7 +54,7 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
         data_x = data_x + (expected_time - max(data_x))
 
     # ax2.plot(data_x/1000000000, packet_counts.values, color=color)
-    df = pd.read_csv("../clients_merged_data.csv")
+    df = pd.read_csv("../merged_data.csv")
     # Transform non number of second columns to nan
     df['delay (seconds)'] = pd.to_numeric(df['delay (seconds)'], errors='coerce')
 
