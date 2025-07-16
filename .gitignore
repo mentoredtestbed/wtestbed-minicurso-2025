@@ -1,7 +1,8 @@
 *.tar.gz
 .old
 ./scripts/*/__pycache__*
-./direnv/
+.direnv/*
 *.pyc
 *.pyo
 *.pyd
+*.csv
