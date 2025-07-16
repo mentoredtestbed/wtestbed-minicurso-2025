@@ -24,6 +24,8 @@ if __name__ == "__main__":
     # for root, dirs, files in os.walk("."):
     os.mkdir(".tmp")
     for f in files:
+        # Print file names and paths
+        print(f"{f}")
         # Get the file from the .tar.gz
         os.system(f"tar -C .tmp -xzvf {f} {out_fname}")
 
@@ -36,10 +38,10 @@ if __name__ == "__main__":
             print(f"File {fname} not found")
         
     os.system(f"rm -rf .tmp")
+    print(df_list)
     
 
     os.makedirs(target_path, exist_ok=True)
-
     df = pd.concat(df_list, ignore_index=True)
     df.to_csv(f"{target_path}/{out_fname}", index=False)
 

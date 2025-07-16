@@ -1,5 +1,5 @@
 #! /bin/bash
-pushd /app/scripts/server-analysis
+pushd scripts/server-analysis
 mkdir .tmp_exp_analyzer
 
 # if not two args

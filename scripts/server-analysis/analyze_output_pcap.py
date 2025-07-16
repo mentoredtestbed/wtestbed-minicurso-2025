@@ -3,6 +3,7 @@ import argparse
 import matplotlib.pyplot as plt
 from tqdm.auto import tqdm
 import numpy as np
+import os
 
 
 def read_data(file_path):
@@ -51,7 +52,8 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
         data_x = data_x + (expected_time - max(data_x))
 
     # ax2.plot(data_x/1000000000, packet_counts.values, color=color)
-    df = pd.read_csv("../merged_data.csv")
+    path_to_git_repo_root = os.environ.get("GIT_ROOT", "./")
+    df = pd.read_csv(os.path.join(path_to_git_repo_root+"/merged_data.csv"))
     # Transform non number of second columns to nan
     df['delay (seconds)'] = pd.to_numeric(df['delay (seconds)'], errors='coerce')
 
@@ -90,8 +92,8 @@ def plot_metrics(throughput, packet_counts, freq, fontsize, expected_time):
 
     # tight layout with padding
     plt.tight_layout(pad=1.5, h_pad=0)
-
-    plt.savefig(f'../output_{freq}-{timestamp}.png', dpi=300)
+    exp_name = os.environ.get("MY_EXP_FILE", "latest")
+    plt.savefig(f'../output_{exp_name}.png', dpi=300)
 
 
 def filter_to_experiment_duration(data, unix_timestamp, duration):
