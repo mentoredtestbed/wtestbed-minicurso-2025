@@ -109,12 +109,12 @@ class CreateAndAnalyseMLDataset(ExperimentPostProcessor):
         flows_path = os.path.join(temp_dir, "flows.csv")
         labeled_flows_path = os.path.join(temp_dir, "labeled_flows.csv")
 
-        # self.add_log_text(create_argus_flows_csv(temp_dir, flows_path))
-        # self.add_log_text(
-        #     create_labeled_file(
-        #         flows_path,
-        #         labeled_flows_path,
-        #         base_path=temp_dir))
+        self.add_log_text(create_argus_flows_csv(temp_dir, flows_path))
+        self.add_log_text(
+            create_labeled_file(
+                flows_path,
+                labeled_flows_path,
+                base_path=temp_dir))
         
         self.add_log_text(create_dataset_analysis(labeled_flows_path, ignore_classes=self.ignore_classes))
 
