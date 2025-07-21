@@ -109,16 +109,28 @@ def create_argus_flows_csv(experiment_path, output_csv, input_pcap=None, use_arp
 
     # If not using ARP, remove ARP packets from the PCAP
     if not use_arp:
+        if input_pcap.endswith(".pcapng"):
+            converted_pcap = input_pcap.replace(".pcapng", ".pcap")
+            result = run_command(f"editcap {input_pcap} {converted_pcap}")
+            if result.returncode != 0:
+                msg = f"Error: Failed to convert {input_pcap} to {converted_pcap}"
+                print(msg)
+                print(result.stdout)
+                print(result.stderr)
+                logs += f"\n{msg}"
+                return ""
+            input_pcap = converted_pcap
+
+        # Remove ARP packets
         result = run_command(f"tcpdump -r {input_pcap} -w tmp_no_arp_pcap -n not arp")
         if result.returncode != 0:
             msg = f"Error: Removing ARP packets failed for {input_pcap}"
             print(msg)
-            # Print traceback
             print(result.stdout)
             print(result.stderr)
             logs += f'\n{msg}'
             return ""
-        
+
         os.remove(input_pcap)
         input_pcap = "tmp_no_arp_pcap"
         print(f"[WARN] use_arp=False: Ignoring ARP packets in {input_pcap}")
@@ -198,7 +210,6 @@ def create_argus_flows_csv(experiment_path, output_csv, input_pcap=None, use_arp
             #     merged_csv.writelines(lines[1:])  # Write remaining lines
             df = pd.read_csv(csv_file, encoding="ISO-8859-1", on_bad_lines='skip')
             print(f"Merging {csv_file} (Adding {len(df)} flows)")
-            print(df)
             df_list.append(df)
 
         if df_list:
