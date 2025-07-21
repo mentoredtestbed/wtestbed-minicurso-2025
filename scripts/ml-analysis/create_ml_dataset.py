@@ -196,7 +196,7 @@ def create_argus_flows_csv(experiment_path, output_csv, input_pcap=None, use_arp
             #         merged_csv.write(lines[0])  # Write header from the first file
             #         header_written = True
             #     merged_csv.writelines(lines[1:])  # Write remaining lines
-            df = pd.read_csv(csv_file, encoding="ISO-8859-1")
+            df = pd.read_csv(csv_file, encoding="ISO-8859-1", on_bad_lines='skip')
             print(f"Merging {csv_file} (Adding {len(df)} flows)")
             print(df)
             df_list.append(df)

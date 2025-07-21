@@ -22,6 +22,11 @@ from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 from sklearn.metrics import precision_score, recall_score
 
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+
 def preprocess_data(df,
                     max_imbalance_scale=10,
                     max_samples_per_class=1000,
@@ -242,7 +247,11 @@ def difficulty_analysis(df, dataset_path):
                 return
             automl = AutoMLSearch(X_train=X_train, y_train=y_train, problem_type=problem_type, objective=objective, max_batches=1, optimize_thresholds=True, n_jobs=-1, verbose=False, error_callback=log_error_callback)
             # automl = AutoMLSearch(X_train=X_train, y_train=y_train, problem_type="binary", objective="f1", n_jobs=-1)
-            automl.search()
+            try:
+                automl.search()
+            except Exception as e:
+                logger.info(f"Error during AutoML search. Skipping replication_id {replication_id}, iteration {i}: {e}")
+                continue
             clf = automl.best_pipeline
             y_pred = clf.predict(X_test)
             f1score = f1_score(y_test, y_pred, average="macro")
